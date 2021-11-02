@@ -2,16 +2,19 @@ using UnityEngine;
 using UnityEngine.Events;
 using Cinemachine;
 
+
 public class PlayerMovementIsaac : MonoBehaviour
 {
     public float speed;
     public float jump;
 
+    public SpriteRenderer sprite;
+
     Rigidbody rb;
     private Vector2 moveInput;
     public LayerMask whatIsGround;
 
-    public Transform groundPoint,followPoint;
+    public Transform groundPoint;
     bool isGrounded, canMove, changeCamera;
     public UnityEvent cameraTercera,cameraPrimera;
     private void Start()
@@ -42,6 +45,17 @@ public class PlayerMovementIsaac : MonoBehaviour
             CamaraChange();
         }
 
+        if (moveInput.x < 0)
+        {
+            sprite.flipX = false;
+        }
+        else
+        {
+            if (moveInput.x > 0)
+            {
+                sprite.flipX = true;
+            }
+        }
        
     }
     private void FixedUpdate()
