@@ -5,6 +5,9 @@ using Cinemachine;
 
 public class PlayerMovementIsaac : MonoBehaviour
 {
+    public static PlayerMovementIsaac instance;
+    public GameObject listening, dd;
+    bool isListeing;
     public float speed;
     public float jump;
 
@@ -15,15 +18,19 @@ public class PlayerMovementIsaac : MonoBehaviour
     public LayerMask whatIsGround;
 
     public Transform groundPoint;
-    bool isGrounded, canMove, changeCamera;
+    public bool isGrounded, canMove, changeCamera;
     public UnityEvent cameraTercera,cameraPrimera;
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         canMove = true;
     }
 
-    private void Update()
+    public void Update()
     {
         RaycastHit hit;
         if (Physics.Raycast(groundPoint.position, Vector3.down, out hit, .01f, whatIsGround))
@@ -45,6 +52,11 @@ public class PlayerMovementIsaac : MonoBehaviour
             CamaraChange();
         }
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ActiveAudio();
+        }
+
         if (moveInput.x < 0)
         {
             sprite.flipX = false;
@@ -58,6 +70,7 @@ public class PlayerMovementIsaac : MonoBehaviour
         }
        
     }
+
     private void FixedUpdate()
     {
         if (canMove)
@@ -66,11 +79,9 @@ public class PlayerMovementIsaac : MonoBehaviour
             moveInput.y = Input.GetAxis("Vertical");
             moveInput.Normalize();
 
-
             rb.velocity = new Vector3(moveInput.x * speed /**40* Time.deltaTime*/, rb.velocity.y, moveInput.y * speed/**40 * Time.deltaTime*/);
         }
     }
-
 
     void CamaraChange()
     {
@@ -87,6 +98,26 @@ public class PlayerMovementIsaac : MonoBehaviour
             {
                 canMove = true;
                 cameraTercera?.Invoke();
+            }
+        }
+    }
+    void ActiveAudio()
+    {
+        isListeing = !isListeing;
+        if (isListeing)
+        {
+            dd.SetActive(true);
+            canMove = false;
+
+        }
+        else
+        {
+            if (!isListeing)
+            {
+                canMove = true;
+
+                dd.SetActive(false);
+
             }
         }
     }
