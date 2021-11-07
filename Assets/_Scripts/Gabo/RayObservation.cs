@@ -5,24 +5,39 @@ using Cinemachine;
 
 public class RayObservation : MonoBehaviour
 {
-    public PlayerMovementIsaac player;
+    PlayerMovementIsaac player;
+    public Transform directionRay;
+    public LayerMask layerRay;
     public void Start()
     {
         player = FindObjectOfType<PlayerMovementIsaac>();
     }
     public void Update()
     {
-        Vector3 mouse = Input.mousePosition;
-        RaycastHit hit;
-        if (player.changeCamera)
+        //Vector3 mouse = Input.mousePosition;
+        if (player.changeCamera && Input.GetKey(KeyCode.E))
         {
-            Debug.DrawRay(transform.position, mouse, Color.green, 10);
-            Physics.Raycast(transform.position, mouse, out hit, 10);
-            if (hit.transform)
+            RaycastHit hit;
+            Debug.DrawRay(transform.position, directionRay.position, Color.green, 10);
+            Physics.Raycast(transform.position, directionRay.position, out hit, 10, layerRay);
+            if (hit.collider)
             {
                 Debug.Log("wena ctm");
+                hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
             }
         }
  
+    }
+
+    void ObservationDetected()
+    {
+        RaycastHit hit;
+        Debug.DrawRay(transform.position, directionRay.position, Color.green, 10);
+        Physics.Raycast(transform.position, directionRay.position, out hit, 10, layerRay);
+        if (hit.collider)
+        {
+            Debug.Log("wena ctm");
+            hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
     }
 }
