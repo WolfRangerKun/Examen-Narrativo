@@ -39,7 +39,8 @@ public class Listening : MonoBehaviour
     {
         if (target.gameObject.GetComponent<FrasePersona>())
         {
-             Libreta.instance.notasPalabras.Add(target.gameObject.GetComponent<FrasePersona>().palabraFea) ;
+            Libreta.instance.CompararPalabras(target.gameObject.GetComponent<FrasePersona>().palabraFea, target.gameObject.GetComponent<FrasePersona>().significado);
+
         }
         print("Escuchando");
 
