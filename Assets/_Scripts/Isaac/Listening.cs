@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Listening : MonoBehaviour
@@ -8,30 +9,45 @@ public class Listening : MonoBehaviour
     public float angle;
     public float speed;
 
-    public GameObject playerRef, pointref;
+    public List<GameObject> playerRefs;
+    public GameObject pointref;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
 
     public bool canSeePlayer;
 
-
+    RaycastHit hitListtening;
     void Start()
     {
         //playerRef = GameObject.FindGameObjectWithTag("Player");
-        StartCoroutine(FOVRoutine());
     }
     private void Update()
     {
         if (canSeePlayer && Input.GetKeyDown(KeyCode.Return))
         {
-            print("Escuchando");
+            Escuchando();
         }
     }
 
+    private void FixedUpdate()
+    {
+
+            FieldOfViewCheck();
+    }
+    void Escuchando()
+    {
+        if (target.gameObject.GetComponent<FrasePersona>())
+        {
+             Libreta.instance.notasPalabras.Add(target.gameObject.GetComponent<FrasePersona>().palabraFea) ;
+        }
+        print("Escuchando");
+
+    }
+    Transform target;
     private IEnumerator FOVRoutine()
     {
-        WaitForSeconds wait = new WaitForSeconds(0.2f);
+        WaitForSeconds wait = new WaitForSeconds(0.1f);
 
         while (true)
         {
@@ -47,17 +63,16 @@ public class Listening : MonoBehaviour
         if (rangeChecks.Length != 0)
         {
 
-            Transform target = rangeChecks[0].transform;
+            target = rangeChecks[0].transform;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
             if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
+                if (!Physics.Raycast(transform.position, directionToTarget,distanceToTarget, obstructionMask))
                 {
                     canSeePlayer = true;
-
                 }
                 else
                     canSeePlayer = false;

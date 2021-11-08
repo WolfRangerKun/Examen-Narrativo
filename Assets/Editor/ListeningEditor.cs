@@ -21,7 +21,10 @@ public class ListeningEditor : Editor
         if (fov.canSeePlayer)
         {
             Handles.color = Color.green;
-            Handles.DrawLine(fov.transform.position, fov.playerRef.transform.position);
+            for (int i = 0; i < fov.playerRefs.Count; i++)
+            {
+                Handles.DrawLine(fov.transform.position, fov.playerRefs[i].transform.position);
+            }
         }
 
     }
