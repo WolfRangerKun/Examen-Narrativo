@@ -20,6 +20,8 @@ public class PlayerMovementIsaac : MonoBehaviour
     public Transform groundPoint;
     public bool isGrounded, canMove, changeCamera;
     public UnityEvent cameraTercera,cameraPrimera;
+
+    public GameObject left, right;
     private void Awake()
     {
         instance = this;
@@ -60,12 +62,16 @@ public class PlayerMovementIsaac : MonoBehaviour
         if (moveInput.x < 0)
         {
             sprite.flipX = false;
+            right.SetActive(false);
+            left.SetActive(true);
         }
         else
         {
             if (moveInput.x > 0)
             {
                 sprite.flipX = true;
+                right.SetActive(true);
+                left.SetActive(false);
             }
         }
        
