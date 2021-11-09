@@ -9,16 +9,17 @@ public class Listening : MonoBehaviour
     public float angle;
     public float speed;
 
-    public List<GameObject> playerRefs;
-    public GameObject pointref;
+    public GameObject[] playerRefs;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
 
     public bool canSeePlayer;
 
-    RaycastHit hitListtening;
-    
+    private void Start()
+    {
+        playerRefs = GameObject.FindGameObjectsWithTag("Persona");
+    }
     private void Update()
     {
         if (canSeePlayer && Input.GetKeyDown(KeyCode.Return))
@@ -29,17 +30,14 @@ public class Listening : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-            FieldOfViewCheck();
+        FieldOfViewCheck();
     }
     void Escuchando()
     {
         if (target.gameObject.GetComponent<FrasePersona>())
         {
             Libreta.instance.CompararPalabras(target.gameObject.GetComponent<FrasePersona>().palabraFea, target.gameObject.GetComponent<FrasePersona>().palabraSignififcado);
-
         }
-
     }
     Transform target;
     private IEnumerator FOVRoutine()
@@ -76,7 +74,6 @@ public class Listening : MonoBehaviour
             }
             else
                 canSeePlayer = false;
-
         }
         else if (canSeePlayer)
             canSeePlayer = false;
