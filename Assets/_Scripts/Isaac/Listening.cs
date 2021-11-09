@@ -10,6 +10,7 @@ public class Listening : MonoBehaviour
     public float speed;
 
     public GameObject[] playerRefs;
+    public GameObject cameraLisening;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
@@ -37,6 +38,7 @@ public class Listening : MonoBehaviour
         if (target.gameObject.GetComponent<FrasePersona>())
         {
             Libreta.instance.CompararPalabras(target.gameObject.GetComponent<FrasePersona>().palabraFea, target.gameObject.GetComponent<FrasePersona>().palabraSignififcado);
+            StartCoroutine("Escuchar");
         }
     }
     Transform target;
@@ -77,5 +79,36 @@ public class Listening : MonoBehaviour
         }
         else if (canSeePlayer)
             canSeePlayer = false;
+    }
+
+    public AudioSource fondo, talk;
+
+    IEnumerator Escuchar()
+    {
+        print("Corrutina");
+        PlayerMovementIsaac.instance.canMove = false;
+        StartCoroutine(StartFade(fondo, 1, .1f));
+        cameraLisening.transform.position = target.transform.position;
+        cameraLisening.SetActive(true);
+        yield return new WaitForSeconds(2);
+        talk.Play();
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(StartFade(fondo, 1, 1f));
+        cameraLisening.SetActive(false);
+
+    }
+
+    public static IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float start = audioSource.volume;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return null;
+        }
+        yield break;
     }
 }
