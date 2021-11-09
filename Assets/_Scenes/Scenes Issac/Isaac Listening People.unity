@@ -877,7 +877,7 @@ GameObject:
   - component: {fileID: 325034402}
   - component: {fileID: 325034401}
   m_Layer: 8
-  m_Name: er (2)
+  m_Name: Persona 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1185,7 +1185,7 @@ GameObject:
   - component: {fileID: 701054012}
   - component: {fileID: 701054011}
   m_Layer: 8
-  m_Name: er (3)
+  m_Name: Persona 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1566,7 +1566,7 @@ GameObject:
   - component: {fileID: 866116084}
   - component: {fileID: 866116088}
   m_Layer: 8
-  m_Name: er
+  m_Name: Persona 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

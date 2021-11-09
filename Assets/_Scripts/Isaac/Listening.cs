@@ -18,10 +18,7 @@ public class Listening : MonoBehaviour
     public bool canSeePlayer;
 
     RaycastHit hitListtening;
-    void Start()
-    {
-        //playerRef = GameObject.FindGameObjectWithTag("Player");
-    }
+    
     private void Update()
     {
         if (canSeePlayer && Input.GetKeyDown(KeyCode.Return))
@@ -42,7 +39,6 @@ public class Listening : MonoBehaviour
             Libreta.instance.CompararPalabras(target.gameObject.GetComponent<FrasePersona>().palabraFea, target.gameObject.GetComponent<FrasePersona>().palabraSignififcado);
 
         }
-        print("Escuchando");
 
     }
     Transform target;
@@ -85,6 +81,4 @@ public class Listening : MonoBehaviour
         else if (canSeePlayer)
             canSeePlayer = false;
     }
-
-   
 }
