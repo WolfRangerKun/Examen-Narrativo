@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
 public class SignificadosPalabras
 {
-    public List<string> significadosDePalabra;
+    public List<string> significados;
 }
 
 public class Libreta : MonoBehaviour
@@ -13,53 +12,39 @@ public class Libreta : MonoBehaviour
     public static Libreta instance;
     public List<string> notasPalabras;
     public List<SignificadosPalabras> sigPalabras;
-    string jaja;
     private void Awake()
     {
         instance = this;
     }
 
 
-    private void Update()
+    public void CompararPalabras(string palabra, SignificadosPalabras sig)
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-        }
-    }
-
-
-    public void CompararPalabras(string palabra, string significado)
-    {
-        SignificadosPalabras thiSig = new SignificadosPalabras();
 
         if (!notasPalabras.Contains(palabra))
         {
             notasPalabras.Add(palabra);
-            sigPalabras.Add(thiSig);
-
-                for (int i = 0; i < notasPalabras.Count; i++)
+            sigPalabras.Add(sig);
+        }
+        else
+        {
+            for (int i = 0; i < notasPalabras.Count; i++)
+            {
+                if (notasPalabras[i] == palabra)
                 {
-                    if (notasPalabras[i] == palabra)
+                    SignificadosPalabras xd = sigPalabras[i];
+
+                    if (!sigPalabras[i].significados.Contains(sig.significados[0]))
                     {
-                        string newWord = jaja;
-                        sigPalabras[i].significadosDePalabra.Add(newWord);
+                        sigPalabras[i].significados.Add(sig.significados[0]);
+                    }
+                    else
+                    {
+                        print("ya tengo esta palabra");
                     }
                 }
-            
+            }
         }
-        //sigPalabras[notasPalabras.Find(x => x.Contains(palabra))]
-        //notasPalabras.Find(x => x.Contains(palabra));
-        //notasPalabras.Find(x => x == palabra);
-
-        //sigPalabras.Find(x => x == sigPalabras.Last()).significadosDePalabra.Add(significado);
-        //sigPalabras.FindLast(x => x == thiSig).significadosDePalabra.Add(significado);
-
-
-
-
-
-
-        //thiSig.significadosDePalabra.Add(significado);
 
     }
 

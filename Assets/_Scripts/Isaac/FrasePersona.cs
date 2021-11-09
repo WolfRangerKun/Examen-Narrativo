@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class FrasePersona : MonoBehaviour
 {
-    public string palabraFea, significado;
+    public SignificadosPalabras palabraSignififcado;
+    public string palabraFea;
 }

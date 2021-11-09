@@ -895,8 +895,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ce017e91dfece4a89ee15bbdb95fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  palabraSignififcado:
+    significados:
+    - Amigo
   palabraFea: Weon
-  significado: Amigo
 --- !u!65 &325034402
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1201,8 +1203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ce017e91dfece4a89ee15bbdb95fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  palabraSignififcado:
+    significados:
+    - Tonto
   palabraFea: Weon
-  significado: Idiota
 --- !u!65 &701054012
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1656,8 +1660,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ce017e91dfece4a89ee15bbdb95fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  palabraSignififcado:
+    significados:
+    - Trasero
   palabraFea: Poto
-  significado: Trasero
 --- !u!1 &907327508
 GameObject:
   m_ObjectHideFlags: 0
