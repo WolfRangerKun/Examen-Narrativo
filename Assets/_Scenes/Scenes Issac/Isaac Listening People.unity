@@ -3298,9 +3298,5 @@ PrefabInstance:
       propertyPath: directionRay
       value: 
       objectReference: {fileID: 95559962}
-    - target: {fileID: 2201440333644662461, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 25781666}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}

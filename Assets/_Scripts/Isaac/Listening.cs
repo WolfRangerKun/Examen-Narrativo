@@ -83,7 +83,7 @@ public class Listening : MonoBehaviour
 
     public AudioSource fondo, talk;
 
-    IEnumerator Escuchar()
+    public IEnumerator Escuchar()
     {
         print("Corrutina");
         PlayerMovementIsaac.instance.canMove = false;
