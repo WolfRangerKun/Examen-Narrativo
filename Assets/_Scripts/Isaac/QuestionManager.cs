@@ -24,7 +24,6 @@ public class QuestionManager : MonoBehaviour
 
     public void CallQuestion(int i)
     {
-
         question.text = questions[i].question;
         reply1.text = questions[i].replies[0];
         reply2.text = questions[i].replies[1];
