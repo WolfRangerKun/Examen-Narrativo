@@ -6,8 +6,6 @@ using UnityEngine.UI;
 using TMPro;
 public class RayObservation : MonoBehaviour
 {
-    public TMP_Settings lol;
-    Canvas tuVieja;
     PlayerMovementIsaac player;
     public LayerMask layerRay;
     public float distanceRay;
@@ -27,14 +25,13 @@ public class RayObservation : MonoBehaviour
             {
                 hit.transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
             }
-            
         }
     }
 
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, target.position);
+        Gizmos.DrawLine(transform.position, new Vector3(target.position.x, target.position.y, target.position.z));
     }
 
 
