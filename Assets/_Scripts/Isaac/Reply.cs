@@ -5,14 +5,12 @@ using UnityEngine;
 public class Reply : MonoBehaviour
 {
     public bool isCorrect;
-    public bool isFirts, isSecond;
-    public GameObject panelPregunta;
+    public int jaja;
     public void ReplyQuestion()
     {
         if (isCorrect)
         {
-            panelPregunta.SetActive(false);
-           
+            jaja++;
         }
         else
         {

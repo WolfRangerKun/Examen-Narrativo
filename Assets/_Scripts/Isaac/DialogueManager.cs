@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour
     private Vector2 originalPos;
 
     bool dialogueOn;
-
+    public bool canContinue = true;
     private void Awake()
     {
         intance = this;
@@ -48,13 +48,13 @@ public class DialogueManager : MonoBehaviour
         nombre.text = dialogue.nombre;
         StartCoroutine(LetrasDeAPoco());
         //dialogoText.text = dialogue.dialogo;
-        portrait.texture = dialogue.retrato;
+        //portrait.texture = dialogue.retrato;
         //portrait.SetNativeSize();
         dialogueOn = true;
 
         IEnumerator LetrasDeAPoco()
         {
-            yield return new WaitUntil(() => Transparencia.intance.transparencia >= .5f);
+            //yield return new WaitUntil(() => Transparencia.intance.transparencia >= .5f);
             foreach (char caracter in dialogue.dialogo)
             {
                 dialogoText.text = dialogoText.text + caracter;
@@ -67,7 +67,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && dialogueOn)
+        if (Input.GetKeyDown(KeyCode.Space) && dialogueOn&& canContinue)
         {
             NextDialgogue();
         }
@@ -88,7 +88,9 @@ public class DialogueManager : MonoBehaviour
             if (index >= dialogos.Count)
             {
 
-                StartCoroutine(HideDialogoCorrutina());
+                //StartCoroutine(HideDialogoCorrutina());
+                HideDialogo();
+
                 index = 0;
                 //termina dialogo
             }
@@ -124,16 +126,5 @@ public class DialogueManager : MonoBehaviour
 
 
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-
-
-        //ShowDialogo(0);
-
-    }
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    HideDialogo();
-    //}
+    
 }
