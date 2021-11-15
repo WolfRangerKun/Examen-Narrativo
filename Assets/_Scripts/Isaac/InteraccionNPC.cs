@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class InteraccionNPC : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InteraccionNPC : MonoBehaviour
     public List<Dialogue> thisDialogue, thisDialogueRespuestaCorrectaUno;
     public GameObject cv;
 
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -15,20 +17,43 @@ public class InteraccionNPC : MonoBehaviour
             PlayDialogue();
         }
     }
-  
+    
+    void ReemplazarPalabra()
+    {
+        string x = thisQuestion.question;
+
+        foreach (string z in Libreta.instance.notasPalabras)
+        {
+            if (x.Contains(z))
+            {
+                string y = "";
+                for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                {
+                    if (Libreta.instance.notasPalabras[i] == z)
+                    {
+                        ////solo funciona si la lista tiene un significado solamente
+
+                        y = Libreta.instance.sigPalabras[i].significados[0];
+                    }
+                }
+                string f = x.Replace(z, y);
+                thisQuestion.question = f;
+                return;
+            }
+        }
+    }
 
     void PlayDialogue()
     {
+        ReemplazarPalabra();
         cv.SetActive(true);
         PlayerMovementIsaac.instance.canMove = false;
         //thisDialogue.FindLast(x => x.dialogo == thisQuestion.question);
         int x = thisDialogue.Count;
         thisDialogue[x-1].dialogo = thisQuestion.question;
         DialogueManager.intance.dialogos = thisDialogue;
-
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
         StartCoroutine(ShowDialogue());
-
         //thisDialogue.dialogo
     }
 
@@ -50,7 +75,7 @@ public class InteraccionNPC : MonoBehaviour
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
         yield return new WaitUntil(() => DialogueManager.intance.index >0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
-
+        QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
         //yield return new WaitUntil(() => DialogueManager.intance.index >= DialogueManager.intance.dialogos.Count);
 
         cv.SetActive(false);

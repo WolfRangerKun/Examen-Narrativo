@@ -3342,12 +3342,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisQuestion:
-    question: Teni gamba o pata en el poto
+    question: Teni gamba o pata en el Poto
     correctAnswer: 0
     replies:
-    - gamba?
-    - poto?
-    - aweonao?
+    - Gamba?
+    - Poto?
+    - Aweonao?
   thisDialogue:
   - nombre: Juan
     dialogo: Oli
@@ -5847,5 +5847,13 @@ PrefabInstance:
       propertyPath: directionRay
       value: 
       objectReference: {fileID: 95559962}
+    - target: {fileID: 5290034457450410245, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
+      propertyPath: sigPalabras.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290034457450410245, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
+      propertyPath: sigPalabras.Array.data[0].significados.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}

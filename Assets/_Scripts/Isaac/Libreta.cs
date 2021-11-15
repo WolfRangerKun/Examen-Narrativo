@@ -20,7 +20,6 @@ public class Libreta : MonoBehaviour
 
     public void CompararPalabras(string palabra, SignificadosPalabras sig)
     {
-
         if (!notasPalabras.Contains(palabra))
         {
             notasPalabras.Add(palabra);
@@ -45,7 +44,5 @@ public class Libreta : MonoBehaviour
                 }
             }
         }
-
     }
-
 }
