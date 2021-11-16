@@ -20,24 +20,24 @@ public class InteraccionNPC : MonoBehaviour
     
     void ReemplazarPalabra()
     {
-        string x = thisQuestion.question;
+        string fraseOrginial = thisQuestion.question;
 
         foreach (string z in Libreta.instance.notasPalabras)
         {
-            if (x.Contains(z))
+            if (fraseOrginial.Contains(z))
             {
-                string y = "";
+                string palabraBuena = "";
                 for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
                 {
                     if (Libreta.instance.notasPalabras[i] == z)
                     {
                         ////solo funciona si la lista tiene un significado solamente
-
-                        y = Libreta.instance.sigPalabras[i].significados[0];
+                        
+                        palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
                     }
                 }
-                string f = x.Replace(z, y);
-                thisQuestion.question = f;
+                string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                thisQuestion.question = nuevaFrase;
                 return;
             }
         }
