@@ -8,7 +8,7 @@ public class InteraccionNPC : MonoBehaviour
     public Question thisQuestion;
     public List<Dialogue> thisDialogue, thisDialogueRespuestaCorrectaUno;
     public GameObject cv;
-
+    public string palabaSearch;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -32,13 +32,18 @@ public class InteraccionNPC : MonoBehaviour
                     if (Libreta.instance.notasPalabras[i] == z)
                     {
                         ////solo funciona si la lista tiene un significado solamente
-                        
-                        palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+                        for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                        {
+                            if(Libreta.instance.sigPalabras[i].significados[e] == palabaSearch)
+                            {
+                                palabraBuena = palabaSearch;
+                                Debug.Log("funciona la wea del weon weon weon weon weon");
+                                string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                                thisQuestion.question = nuevaFrase;
+                            }
+                        }
                     }
                 }
-                string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
-                thisQuestion.question = nuevaFrase;
-                return;
             }
         }
     }
@@ -82,4 +87,25 @@ public class InteraccionNPC : MonoBehaviour
         PlayerMovementIsaac.instance.canMove = true;
         yield break;
     }
+
+
+    //foreach (string z in Libreta.instance.notasPalabras)
+    //    {
+    //        if (fraseOrginial.Contains(z))
+    //        {
+    //            string palabraBuena = "";
+    //            for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+    //            {
+    //                if (Libreta.instance.notasPalabras[i] == z)
+    //                {
+    //                    ////solo funciona si la lista tiene un significado solamente
+
+    //                    palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+    //                }
+    //            }
+    //            string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+    //            thisQuestion.question = nuevaFrase;
+    //            return;
+    //        }
+    //    }
 }
