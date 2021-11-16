@@ -10,6 +10,7 @@ public class RayObservation : MonoBehaviour
     public LayerMask layerRay;
     public float distanceRay;
     public Transform target;
+
     public void Start()
     {
         player = FindObjectOfType<PlayerMovementIsaac>();
@@ -18,21 +19,14 @@ public class RayObservation : MonoBehaviour
     {
         if (player.changeCamera && Input.GetKey(KeyCode.E))
         {
-
             RaycastHit hit;
-            Debug.DrawRay(transform.position, transform.forward, Color.blue, distanceRay);
-            if (Physics.Raycast(transform.position, transform.forward, out hit, distanceRay, layerRay))
+            Debug.DrawRay(transform.position, target.transform.position, Color.blue, distanceRay);
+            if (Physics.Raycast(transform.position, target.transform.position, out hit, distanceRay, layerRay))
             {
                 hit.transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+                Libreta.instance.RegisterGeturess(hit.transform.gameObject.GetComponent<ObservGests>().descripcion, hit.transform.gameObject.GetComponent<ObservGests>().gestoObservable);
             }
         }
     }
-
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, new Vector3(target.position.x, target.position.y, target.position.z));
-    }
-
 
 }

@@ -312,7 +312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 21.7, z: 0}
+  m_LocalPosition: {x: 0, y: 42.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -437,7 +437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 803691443}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.17, z: 11.4}
+  m_LocalPosition: {x: 0, y: -0, z: 14.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 963194228}
@@ -565,7 +565,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -687,6 +687,7 @@ GameObject:
   - component: {fileID: 1194714460}
   - component: {fileID: 1194714459}
   - component: {fileID: 1194714458}
+  - component: {fileID: 1194714461}
   m_Layer: 9
   m_Name: Cube (5)
   m_TagString: Untagged
@@ -770,6 +771,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1194714456}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1194714461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194714456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 911dd269a2b3ff44cb9f7ac425a1d43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gestoObservable:
+    clasifcationObserv: 2
+    context:
+    - Neutral
+  descripcion: Anuncio de Celulares
 --- !u!1 &1242401822
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +800,7 @@ GameObject:
   - component: {fileID: 1242401826}
   - component: {fileID: 1242401825}
   - component: {fileID: 1242401824}
+  - component: {fileID: 1242401827}
   m_Layer: 9
   m_Name: Cube (6)
   m_TagString: Untagged
@@ -865,6 +884,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242401822}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1242401827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242401822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 911dd269a2b3ff44cb9f7ac425a1d43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gestoObservable:
+    clasifcationObserv: 0
+    context:
+    - Negativo
+  descripcion: 
 --- !u!1 &1303413801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,6 +1193,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1487030870, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.6
+      objectReference: {fileID: 0}
     - target: {fileID: 594579869174242074, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1203,6 +1243,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 594579869174242077, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 594579870653512146, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3165427313988380044, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4913957641462143187, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564940464302436827, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
