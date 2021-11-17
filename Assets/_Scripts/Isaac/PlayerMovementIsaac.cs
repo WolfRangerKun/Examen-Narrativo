@@ -10,6 +10,7 @@ public class PlayerMovementIsaac : MonoBehaviour
     bool isListeing;
     public float speed;
     public float jump;
+    public AutoFlip book;
 
     public SpriteRenderer sprite;
 
@@ -34,6 +35,17 @@ public class PlayerMovementIsaac : MonoBehaviour
 
     public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            book.FlipLeftPage();
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            book.FlipRightPage();
+
+        }
         RaycastHit hit;
         if (Physics.Raycast(groundPoint.position, Vector3.down, out hit, .01f, whatIsGround))
         {
@@ -58,6 +70,8 @@ public class PlayerMovementIsaac : MonoBehaviour
         {
             ActiveAudio();
         }
+
+
 
         if (moveInput.x < 0)
         {

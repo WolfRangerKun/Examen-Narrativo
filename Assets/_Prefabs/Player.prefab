@@ -998,7 +998,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notasPalabras: []
+  notasObservaciones: []
   sigPalabras: []
+  cosasObservadas: []
+  panelModismos: {fileID: 0}
+  panelSig: {fileID: 0}
+  panelString: {fileID: 660067918510968490, guid: 8498215abbd0b744fbd1ae9eb7ec4a59, type: 3}
 --- !u!114 &594579869174242078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1015,6 +1020,7 @@ MonoBehaviour:
   dd: {fileID: 5564940464302436827}
   speed: 10
   jump: 5
+  book: {fileID: 0}
   sprite: {fileID: 594579870653512146}
   whatIsGround:
     serializedVersion: 2

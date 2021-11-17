@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class SignificadosPalabras
@@ -26,19 +29,26 @@ public class Libreta : MonoBehaviour
     public List<string> notasObservaciones;
     public List<SignificadosPalabras> sigPalabras;
     public List<GestObserv> cosasObservadas;
-
+    public Transform panelModismos, panelSig;
+    public GameObject panelString;
     private void Awake()
     {
         instance = this;
     }
 
+    
 
     public void CompararPalabras(string palabra, SignificadosPalabras sig)
     {
         if (!notasPalabras.Contains(palabra))
         {
             notasPalabras.Add(palabra);
+            GameObject modismo = Instantiate(panelString, panelModismos);
+            modismo.GetComponentInChildren<TextMeshProUGUI>().text = palabra;
+
             sigPalabras.Add(sig);
+            GameObject significado = Instantiate(panelString, panelSig);
+            significado.GetComponentInChildren<TextMeshProUGUI>().text = sig.significados[0];
         }
         else
         {
@@ -51,6 +61,8 @@ public class Libreta : MonoBehaviour
                     if (!sigPalabras[i].significados.Contains(sig.significados[0]))
                     {
                         sigPalabras[i].significados.Add(sig.significados[0]);
+                        GameObject significado = Instantiate(panelString, panelSig);
+                        significado.GetComponentInChildren<TextMeshProUGUI>().text = sig.significados[0];
                     }
                     else
                     {
