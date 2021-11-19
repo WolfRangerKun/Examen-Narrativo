@@ -28,7 +28,7 @@ public class QuestionManager : MonoBehaviour
         reply1.text = questions[i].replies[0];
         reply2.text = questions[i].replies[1];
         reply3.text = questions[i].replies[2];
-        replies[questions[i].correctAnswer].isCorrect = true;
+        //replies[questions[i].correctAnswer].isCorrect = true;
     }
 
     public void ShowQuestion(Question question)
@@ -41,6 +41,6 @@ public class QuestionManager : MonoBehaviour
         reply1.text = question.replies[0];
         reply2.text = question.replies[1];
         reply3.text = question.replies[2];
-        replies[question.correctAnswer].isCorrect = true;
+        //replies[question.correctAnswer].isCorrect = true;
     }
 }

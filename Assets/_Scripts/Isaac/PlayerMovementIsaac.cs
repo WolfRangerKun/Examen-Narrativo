@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Cinemachine;
+using DG.Tweening;
 
 
 public class PlayerMovementIsaac : MonoBehaviour
@@ -22,7 +23,9 @@ public class PlayerMovementIsaac : MonoBehaviour
     public bool isGrounded, canMove, changeCamera;
     public UnityEvent cameraTercera,cameraPrimera;
 
-    public GameObject left, right;
+    public GameObject left, right,posUp,posDown, libreta;
+    bool showLibro;
+
     private void Awake()
     {
         instance = this;
@@ -35,6 +38,11 @@ public class PlayerMovementIsaac : MonoBehaviour
 
     public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Librito();
+        }
+
         if (Input.GetKeyDown(KeyCode.O))
         {
             book.FlipLeftPage();
@@ -142,4 +150,22 @@ public class PlayerMovementIsaac : MonoBehaviour
         }
     }
 
+
+    void Librito()
+    {
+        showLibro = !showLibro;
+
+        if (showLibro)
+        {
+            libreta.transform.DOMove(posDown.transform.position, 1f);
+        }
+        else
+        {
+            if (!showLibro)
+            {
+                libreta.transform.DOMove(posUp.transform.position, 1f);
+
+            }
+        }
+    }
 }

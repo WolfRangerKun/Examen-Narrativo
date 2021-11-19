@@ -71,12 +71,21 @@ public class InteraccionNPC : MonoBehaviour
         DialogueManager.intance.canContinue = false;
         QuestionManager.intance.ShowQuestion(thisQuestion);
 
+        //ver aqui lo de distintos dialogos
+        foreach (Reply item in QuestionManager.intance.replies)
+        {
+
+        }
+        //ver aqui lo de distintos dialogos
+
         yield return new WaitUntil(() => QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja != 0);
         QuestionManager.intance.botones.SetActive(false);
         DialogueManager.intance.index =0;
 
         DialogueManager.intance.canContinue = true;
+
         DialogueManager.intance.dialogos = thisDialogueRespuestaCorrectaUno;
+
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
         yield return new WaitUntil(() => DialogueManager.intance.index >0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);

@@ -31,6 +31,8 @@ public class Libreta : MonoBehaviour
     public List<GestObserv> cosasObservadas;
     public Transform panelModismos, panelSig;
     public GameObject panelString;
+    public List<GameObject> modLibreta, sigLibreta;
+
     private void Awake()
     {
         instance = this;
@@ -45,10 +47,13 @@ public class Libreta : MonoBehaviour
             notasPalabras.Add(palabra);
             GameObject modismo = Instantiate(panelString, panelModismos);
             modismo.GetComponentInChildren<TextMeshProUGUI>().text = palabra;
+            modLibreta.Add(modismo);
 
             sigPalabras.Add(sig);
             GameObject significado = Instantiate(panelString, panelSig);
             significado.GetComponentInChildren<TextMeshProUGUI>().text = sig.significados[0];
+            sigLibreta.Add(significado);
+
         }
         else
         {
@@ -61,8 +66,11 @@ public class Libreta : MonoBehaviour
                     if (!sigPalabras[i].significados.Contains(sig.significados[0]))
                     {
                         sigPalabras[i].significados.Add(sig.significados[0]);
-                        GameObject significado = Instantiate(panelString, panelSig);
-                        significado.GetComponentInChildren<TextMeshProUGUI>().text = sig.significados[0];
+                        sigLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text = sigLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text + ", "+ sig.significados[0];
+
+                        //GameObject significado = Instantiate(panelString, panelSig);
+                        //significado.GetComponentInChildren<TextMeshProUGUI>().text = sig.significados[0];
+
                     }
                     else
                     {
