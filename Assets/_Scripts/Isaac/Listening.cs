@@ -92,9 +92,13 @@ public class Listening : MonoBehaviour
         cameraLisening.SetActive(true);
         yield return new WaitForSeconds(2);
         talk.Play();
-        yield return new WaitForSeconds(3f);
+        DialogueManager.intance.dialogos =  target.gameObject.GetComponent<FrasePersona>().dialogoContexto;
+        DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        yield return new WaitUntil(()=> DialogueManager.intance.index >= DialogueManager.intance.dialogos.Count -1);
+        yield return new WaitUntil(() => DialogueManager.intance.index ==0);
         StartCoroutine(StartFade(fondo, 1, 1f));
         cameraLisening.SetActive(false);
+        yield break;
 
     }
 

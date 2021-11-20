@@ -1452,6 +1452,13 @@ MonoBehaviour:
     significados:
     - Amigo
   palabraFea: Weon
+  dialogoContexto:
+  - nombre: Juan
+    dialogo: Alo Weon(Amigo), como tas?
+    retrato: {fileID: 0}
+  - nombre: Juan
+    dialogo: Yo muy bien gracias...
+    retrato: {fileID: 0}
 --- !u!65 &325034402
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2589,6 +2596,13 @@ MonoBehaviour:
     significados:
     - Tonto
   palabraFea: Weon
+  dialogoContexto:
+  - nombre: Nacho
+    dialogo: Pucha qie eri Weon(Tonto) Pablo
+    retrato: {fileID: 0}
+  - nombre: Nacho
+    dialogo: Como le dices que no a esa wea...
+    retrato: {fileID: 0}
 --- !u!65 &701054012
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3290,6 +3304,13 @@ MonoBehaviour:
     significados:
     - Trasero
   palabraFea: Poto
+  dialogoContexto:
+  - nombre: Eduardo
+    dialogo: Oie amigo el otro dia me sente a comer torta
+    retrato: {fileID: 0}
+  - nombre: Eduardo
+    dialogo: Y ahora me duele el "Poto"
+    retrato: {fileID: 0}
 --- !u!1 &877591296
 GameObject:
   m_ObjectHideFlags: 0
@@ -4157,13 +4178,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchTextos: 0
+  sigWeon: 1
   thisQuestion:
-    question: Teni gamba o pata en el Poto
+    question: Weon, Teni gamba o pata en el Poto
     correctAnswer: 0
     replies:
     - Gamba?
     - Poto?
-    - Aweonao?
+    - Weon?
   thisDialogue:
   - nombre: Juan
     dialogo: Oli
@@ -4172,7 +4194,7 @@ MonoBehaviour:
     dialogo: no eri de aqui
     retrato: {fileID: 0}
   - nombre: Juan
-    dialogo: aweonao
+    dialogo: aweonao Weon
     retrato: {fileID: 0}
   - nombre: Juan
     dialogo: pregunta
@@ -4182,11 +4204,11 @@ MonoBehaviour:
     dialogo: Sipo Gamba
     retrato: {fileID: 0}
   - nombre: Juan
-    dialogo: Awonao
+    dialogo: Awonao Weon
     retrato: {fileID: 0}
   dialogueDos:
   - nombre: Juan
-    dialogo: Como escuchaste
+    dialogo: Como escuchaste Weon
     retrato: {fileID: 0}
   - nombre: Juan
     dialogo: En el Poto
@@ -4196,7 +4218,7 @@ MonoBehaviour:
     dialogo: Aweonao po
     retrato: {fileID: 0}
   - nombre: Juan
-    dialogo: Na que decir
+    dialogo: Na que decir, Weon noma
     retrato: {fileID: 0}
   cv: {fileID: 1313332908}
   palabaSearch: Trasero
