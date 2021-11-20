@@ -4156,6 +4156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe76a822cb9f0624e83ce156a5ec01a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchTextos: 0
   thisQuestion:
     question: Teni gamba o pata en el Poto
     correctAnswer: 0
@@ -4176,12 +4177,26 @@ MonoBehaviour:
   - nombre: Juan
     dialogo: pregunta
     retrato: {fileID: 0}
-  thisDialogueRespuestaCorrectaUno:
+  dialogueUno:
   - nombre: Juan
-    dialogo: sipoaweoao gamba
+    dialogo: Sipo Gamba
     retrato: {fileID: 0}
   - nombre: Juan
-    dialogo: puto
+    dialogo: Awonao
+    retrato: {fileID: 0}
+  dialogueDos:
+  - nombre: Juan
+    dialogo: Como escuchaste
+    retrato: {fileID: 0}
+  - nombre: Juan
+    dialogo: En el Poto
+    retrato: {fileID: 0}
+  dialogueTres:
+  - nombre: Juan
+    dialogo: Aweonao po
+    retrato: {fileID: 0}
+  - nombre: Juan
+    dialogo: Na que decir
     retrato: {fileID: 0}
   cv: {fileID: 1313332908}
   palabaSearch: Trasero

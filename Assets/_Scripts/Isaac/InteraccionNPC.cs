@@ -2,11 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
+[System.Serializable]
+public enum SwitchTextos
+{
+    RESPUESTAUNO = 0,
+    RESPUESTADOS = 1,
+    RESPUESTATRES = 2
+}
 public class InteraccionNPC : MonoBehaviour
 {
+    public SwitchTextos switchTextos;
     public Question thisQuestion;
-    public List<Dialogue> thisDialogue, thisDialogueRespuestaCorrectaUno;
+    public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres;
     public GameObject cv;
     public string palabaSearch;
     
@@ -71,32 +80,51 @@ public class InteraccionNPC : MonoBehaviour
         DialogueManager.intance.canContinue = false;
         QuestionManager.intance.ShowQuestion(thisQuestion);
 
-        //ver aqui lo de distintos dialogos
-        foreach (Reply item in QuestionManager.intance.replies)
+        yield return new WaitWhile(() => QuestionManager.intance.replies.TrueForAll(x => x.jaja == 0));
+
+
+        for (int i = 0; i < QuestionManager.intance.replies.Count; i++)
         {
 
+            if (QuestionManager.intance.replies[i].jaja != 0)
+            {
+                switchTextos = (SwitchTextos)i;
+                QuestionManager.intance.replies[i].jaja = 0;
+            }
         }
-        //ver aqui lo de distintos dialogos
-
-        yield return new WaitUntil(() => QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja != 0);
+        
         QuestionManager.intance.botones.SetActive(false);
         DialogueManager.intance.index =0;
 
         DialogueManager.intance.canContinue = true;
 
-        DialogueManager.intance.dialogos = thisDialogueRespuestaCorrectaUno;
-
+        SwitchText();
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
         yield return new WaitUntil(() => DialogueManager.intance.index >0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
         QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
-        //yield return new WaitUntil(() => DialogueManager.intance.index >= DialogueManager.intance.dialogos.Count);
 
         cv.SetActive(false);
         PlayerMovementIsaac.instance.canMove = true;
         yield break;
     }
 
+    void SwitchText()
+    {
+        switch (switchTextos)
+        {
+            case SwitchTextos.RESPUESTAUNO:
+                DialogueManager.intance.dialogos = dialogueUno;
+                break;
+            case SwitchTextos.RESPUESTADOS:
+                DialogueManager.intance.dialogos = dialogueDos;
+                break;
+            case SwitchTextos.RESPUESTATRES:
+                DialogueManager.intance.dialogos = dialogueTres;
+                break;
+            
+        }
+    }
 
     //foreach (string z in Libreta.instance.notasPalabras)
     //    {

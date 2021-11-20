@@ -8,13 +8,14 @@ public class Reply : MonoBehaviour
     public int jaja;
     public void ReplyQuestion()
     {
-        if (isCorrect)
-        {
-            jaja++;
-        }
-        else
-        {
+        //if (isCorrect)
+        //{
+        //    jaja++;
+        //}
+        //else
+        //{
 
-        }
+        //}
+        jaja++;
     }
 }
