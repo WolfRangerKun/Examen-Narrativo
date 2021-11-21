@@ -727,7 +727,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &183605458
 GameObject:
@@ -1004,7 +1004,7 @@ Transform:
   m_LocalScale: {x: 1, y: 8.648, z: 2.2633}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &232909474
 GameObject:
@@ -1236,7 +1236,7 @@ RectTransform:
   - {fileID: 149057751}
   - {fileID: 62882933}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2867,7 +2867,7 @@ Transform:
   - {fileID: 1176131723}
   - {fileID: 1313332909}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &740603773
 GameObject:
@@ -4179,8 +4179,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switchTextos: 0
   sigWeon: 1
+  singinificadoParaDesbloquear: 100 pesos
   thisQuestion:
-    question: Weon, Teni gamba o pata en el Poto
+    question: Weon, Teni Gamba o pata en el Poto
     correctAnswer: 0
     replies:
     - Gamba?
@@ -4220,8 +4221,14 @@ MonoBehaviour:
   - nombre: Juan
     dialogo: Na que decir, Weon noma
     retrato: {fileID: 0}
+  dialogoDesbloqueo:
+  - nombre: Juan
+    dialogo: Teni, que genial
+    retrato: {fileID: 0}
+  - nombre: Juan
+    dialogo: Ahora andate Weon
+    retrato: {fileID: 0}
   cv: {fileID: 1313332908}
-  palabaSearch: Trasero
 --- !u!1 &1176442020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4496,6 +4503,125 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268325449}
   m_CullTransparentMesh: 1
+--- !u!1 &1298507726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1298507731}
+  - component: {fileID: 1298507730}
+  - component: {fileID: 1298507729}
+  - component: {fileID: 1298507728}
+  - component: {fileID: 1298507727}
+  m_Layer: 8
+  m_Name: Persona 4
+  m_TagString: Persona
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1298507727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298507726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5ce017e91dfece4a89ee15bbdb95fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  palabraSignififcado:
+    significados:
+    - 100 pesos
+  palabraFea: Gamba
+  dialogoContexto:
+  - nombre: Edu
+    dialogo: Teni Gamba pa un dulce?
+    retrato: {fileID: 0}
+  - nombre: Edu
+    dialogo: Porfa
+    retrato: {fileID: 0}
+--- !u!65 &1298507728
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298507726}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1298507729
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298507726}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: eca3988a008788046aa5a7ff7875cc69, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1298507730
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298507726}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1298507731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298507726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.92, y: 3.8865542, z: 5.98}
+  m_LocalScale: {x: 1, y: 8.648, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1303413801
 GameObject:
   m_ObjectHideFlags: 0
@@ -6002,7 +6128,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1892720776
 GameObject:
@@ -6889,7 +7015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 594579869174242077, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 594579869174242077, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
       propertyPath: m_LocalPosition.x

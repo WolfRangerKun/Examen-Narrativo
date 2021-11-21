@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 //using System.Linq;
 
@@ -21,10 +22,11 @@ public class InteraccionNPC : MonoBehaviour
 {
     public SwitchTextos switchTextos;
     public SignificadosWeon sigWeon;
+    public string singinificadoParaDesbloquear;
+
     public Question thisQuestion;
-    public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres;
+    public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres, dialogoDesbloqueo;
     public GameObject cv;
-    //public string palabaSearch;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -381,6 +383,54 @@ public class InteraccionNPC : MonoBehaviour
                 }
             }
         }
+        foreach (Dialogue d in dialogoDesbloqueo)
+        {
+            string fraseOrginial = d.dialogo;
+
+            foreach (string z in Libreta.instance.notasPalabras)
+            {
+
+                
+                if (fraseOrginial.Contains(z) && z != "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+
+                            palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+
+                if (fraseOrginial.Contains(z) && z == "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+                            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                            {
+                                if (Libreta.instance.sigPalabras[i].significados[e] == sigWeon.ToString())
+                                {
+                                    palabraBuena = Libreta.instance.sigPalabras[i].significados[e];
+                                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                                    d.dialogo = nuevaFrase;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
         #endregion
         #region ParaRespuestaBotones
         for (int x = 0; x < thisQuestion.replies.Count; x++)
@@ -464,6 +514,18 @@ public class InteraccionNPC : MonoBehaviour
             if (QuestionManager.intance.replies[i].jaja != 0)
             {
                 switchTextos = (SwitchTextos)i;
+
+
+                if (QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text.Contains(singinificadoParaDesbloquear))
+                {
+                    DialogueManager.intance.dialogos = dialogoDesbloqueo;
+                    print("Hay que poner una condicion para que ahora no podamos hablar mas con el como al principio, sino que diga como, muchas gracias o algo asi xd");
+                }
+                else
+                {
+                    SwitchText();
+                }
+
                 QuestionManager.intance.replies[i].jaja = 0;
             }
         }
@@ -473,11 +535,11 @@ public class InteraccionNPC : MonoBehaviour
 
         DialogueManager.intance.canContinue = true;
 
-        SwitchText();
+
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
         yield return new WaitUntil(() => DialogueManager.intance.index > 0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
-        QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
+        //QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
 
         cv.SetActive(false);
         PlayerMovementIsaac.instance.canMove = true;
