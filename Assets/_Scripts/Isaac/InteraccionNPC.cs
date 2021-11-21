@@ -27,7 +27,7 @@ public class InteraccionNPC : MonoBehaviour
     public Question thisQuestion;
     public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres, dialogoDesbloqueo;
     public GameObject cv;
-
+    bool yaDesbloqueo;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -390,7 +390,7 @@ public class InteraccionNPC : MonoBehaviour
             foreach (string z in Libreta.instance.notasPalabras)
             {
 
-                
+
                 if (fraseOrginial.Contains(z) && z != "Weon")
                 {
                     string palabraBuena = "";
@@ -490,7 +490,14 @@ public class InteraccionNPC : MonoBehaviour
         //thisDialogue.FindLast(x => x.dialogo == thisQuestion.question);
         int x = thisDialogue.Count;
         thisDialogue[x - 1].dialogo = thisQuestion.question;
-        DialogueManager.intance.dialogos = thisDialogue;
+        if (!yaDesbloqueo)
+        {
+            DialogueManager.intance.dialogos = thisDialogue;
+        }
+        else
+        {
+            DialogueManager.intance.dialogos = dialogoDesbloqueo;
+        }
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
         StartCoroutine(ShowDialogue());
         //thisDialogue.dialogo
@@ -499,44 +506,54 @@ public class InteraccionNPC : MonoBehaviour
 
     IEnumerator ShowDialogue()
     {
+        int l = 0;
         int x = thisDialogue.Count;
-
-        yield return new WaitUntil(() => DialogueManager.intance.index == x - 1);
-        DialogueManager.intance.canContinue = false;
-        QuestionManager.intance.ShowQuestion(thisQuestion);
-
-        yield return new WaitWhile(() => QuestionManager.intance.replies.TrueForAll(x => x.jaja == 0));
-
-
-        for (int i = 0; i < QuestionManager.intance.replies.Count; i++)
+        if (!yaDesbloqueo)
         {
+            yield return new WaitUntil(() => DialogueManager.intance.index == x - 1);
+            DialogueManager.intance.canContinue = false;
+            QuestionManager.intance.ShowQuestion(thisQuestion);
 
-            if (QuestionManager.intance.replies[i].jaja != 0)
+            yield return new WaitWhile(() => QuestionManager.intance.replies.TrueForAll(x => x.jaja == 0));
+
+
+            for (int i = 0; i < QuestionManager.intance.replies.Count; i++)
             {
-                switchTextos = (SwitchTextos)i;
 
-
-                if (QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text.Contains(singinificadoParaDesbloquear))
+                if (QuestionManager.intance.replies[i].jaja != 0)
                 {
-                    DialogueManager.intance.dialogos = dialogoDesbloqueo;
-                    print("Hay que poner una condicion para que ahora no podamos hablar mas con el como al principio, sino que diga como, muchas gracias o algo asi xd");
-                }
-                else
-                {
-                    SwitchText();
-                }
+                    switchTextos = (SwitchTextos)i;
 
-                QuestionManager.intance.replies[i].jaja = 0;
+
+                    if (QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text.Contains(singinificadoParaDesbloquear))
+                    {
+                        DialogueManager.intance.dialogos = dialogoDesbloqueo;
+                        //print("Hay que poner una condicion para que ahora no podamos hablar mas con el como al principio, sino que diga como, muchas gracias o algo asi xd");
+                        yaDesbloqueo = true;
+
+                    }
+                    else
+                    {
+                        SwitchText();
+                    }
+
+                    QuestionManager.intance.replies[i].jaja = 0;
+                }
             }
-        }
+            print("Lologre");
 
-        QuestionManager.intance.botones.SetActive(false);
+            QuestionManager.intance.botones.SetActive(false);
+        }
+       
         DialogueManager.intance.index = 0;
 
         DialogueManager.intance.canContinue = true;
 
-
-        DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        if (!yaDesbloqueo && l == 0)
+        {
+            DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+            l = 1;
+        }
         yield return new WaitUntil(() => DialogueManager.intance.index > 0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
         //QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
