@@ -23,6 +23,8 @@ public class InteraccionNPC : MonoBehaviour
     public SwitchTextos switchTextos;
     public SignificadosWeon sigWeon;
     public string singinificadoParaDesbloquear;
+    //public string observacionParaDesbloquear;
+
 
     public Question thisQuestion;
     public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres, dialogoDesbloqueo;
@@ -484,6 +486,7 @@ public class InteraccionNPC : MonoBehaviour
 
     void PlayDialogue()
     {
+        MencionObservacion();
         ReemplazarPalabra();
         cv.SetActive(true);
         PlayerMovementIsaac.instance.canMove = false;
@@ -504,9 +507,15 @@ public class InteraccionNPC : MonoBehaviour
     }
 
 
+    void MencionObservacion()
+    {
+
+    }
+
     IEnumerator ShowDialogue()
     {
         int l = 0;
+        int y = 0;
         int x = thisDialogue.Count;
         if (!yaDesbloqueo)
         {
@@ -528,19 +537,45 @@ public class InteraccionNPC : MonoBehaviour
                     if (QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text.Contains(singinificadoParaDesbloquear))
                     {
                         DialogueManager.intance.dialogos = dialogoDesbloqueo;
-                        //print("Hay que poner una condicion para que ahora no podamos hablar mas con el como al principio, sino que diga como, muchas gracias o algo asi xd");
                         yaDesbloqueo = true;
-
                     }
                     else
                     {
                         SwitchText();
                     }
+                    for (int a = 0; a < Libreta.instance.cosasObservadas.Count; a++)
+                    {
+                        if (Libreta.instance.notasObservaciones[a] == QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text)
+                        {
+                            DialogueManager.intance.dialogos = dialogoDesbloqueo;
+                            yaDesbloqueo = true;
+                            print("Lologre");
+                        }
+                        else
+                        {
+                            SwitchText();
 
+                        }
+                    }
+                    //foreach (var g in Libreta.instance.notasObservaciones)
+                    //{
+                    //    if (g == QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text)
+                    //    {
+                    //        DialogueManager.intance.dialogos = dialogoDesbloqueo;
+                    //        yaDesbloqueo = true;
+                    //        l++;
+                    //    }
+                    //    else
+                    //    {
+                    //        SwitchText();
+
+                    //    }
+                    //}
                     QuestionManager.intance.replies[i].jaja = 0;
                 }
             }
-            print("Lologre");
+
+           
 
             QuestionManager.intance.botones.SetActive(false);
         }
@@ -549,10 +584,20 @@ public class InteraccionNPC : MonoBehaviour
 
         DialogueManager.intance.canContinue = true;
 
-        if (!yaDesbloqueo && l == 0)
+        if (l == 0)
         {
-            DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
-            l = 1;
+            if ( !yaDesbloqueo)
+            {
+                DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+            }
+            else
+            {
+                if (yaDesbloqueo)
+                {
+                    DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+                    l++;
+                }
+            }
         }
         yield return new WaitUntil(() => DialogueManager.intance.index > 0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
