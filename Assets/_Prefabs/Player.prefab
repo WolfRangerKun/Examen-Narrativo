@@ -1003,7 +1003,13 @@ MonoBehaviour:
   cosasObservadas: []
   panelModismos: {fileID: 0}
   panelSig: {fileID: 0}
+  panelGest: {fileID: 0}
+  panelObs: {fileID: 0}
   panelString: {fileID: 660067918510968490, guid: 8498215abbd0b744fbd1ae9eb7ec4a59, type: 3}
+  modLibreta: []
+  sigLibreta: []
+  gestLibreta: []
+  obsLibreta: []
 --- !u!114 &594579869174242078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1109,6 +1115,9 @@ MonoBehaviour:
         m_CallState: 2
   left: {fileID: 594579870011791298}
   right: {fileID: 594579870073795096}
+  posUp: {fileID: 0}
+  posDown: {fileID: 0}
+  libreta: {fileID: 0}
 --- !u!1 &594579869206776024
 GameObject:
   m_ObjectHideFlags: 0

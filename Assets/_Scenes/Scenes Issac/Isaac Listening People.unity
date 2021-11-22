@@ -8510,9 +8510,5 @@ PrefabInstance:
       propertyPath: panelModismos
       value: 
       objectReference: {fileID: 1892720777}
-    - target: {fileID: 5290034457450410245, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
-      propertyPath: cosasObservadas.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33c750ad560d222438092ea8f41a3d29, type: 3}
