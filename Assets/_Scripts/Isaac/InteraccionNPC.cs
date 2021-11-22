@@ -27,9 +27,10 @@ public class InteraccionNPC : MonoBehaviour
 
 
     public Question thisQuestion;
-    public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres, dialogoDesbloqueo;
+    public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres, dialogoDesbloqueoConPalabra, dialogoDesbloqueoConObservacion;
     public GameObject cv;
-    bool yaDesbloqueo;
+    bool yaDesbloqueo, isDialogoPalabra;
+    int l;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -385,7 +386,7 @@ public class InteraccionNPC : MonoBehaviour
                 }
             }
         }
-        foreach (Dialogue d in dialogoDesbloqueo)
+        foreach (Dialogue d in dialogoDesbloqueoConPalabra)
         {
             string fraseOrginial = d.dialogo;
 
@@ -432,6 +433,54 @@ public class InteraccionNPC : MonoBehaviour
                 }
             }
         }
+        foreach (Dialogue d in dialogoDesbloqueoConObservacion)
+        {
+            string fraseOrginial = d.dialogo;
+
+            foreach (string z in Libreta.instance.notasPalabras)
+            {
+
+
+                if (fraseOrginial.Contains(z) && z != "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+
+                            palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+
+                if (fraseOrginial.Contains(z) && z == "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+                            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                            {
+                                if (Libreta.instance.sigPalabras[i].significados[e] == sigWeon.ToString())
+                                {
+                                    palabraBuena = Libreta.instance.sigPalabras[i].significados[e];
+                                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                                    d.dialogo = nuevaFrase;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
 
         #endregion
         #region ParaRespuestaBotones
@@ -499,7 +548,16 @@ public class InteraccionNPC : MonoBehaviour
         }
         else
         {
-            DialogueManager.intance.dialogos = dialogoDesbloqueo;
+            if (isDialogoPalabra)
+            {
+                DialogueManager.intance.dialogos = dialogoDesbloqueoConPalabra;
+
+            }
+            else
+            {
+                DialogueManager.intance.dialogos = dialogoDesbloqueoConObservacion;
+
+            }
         }
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
         StartCoroutine(ShowDialogue());
@@ -511,11 +569,9 @@ public class InteraccionNPC : MonoBehaviour
     {
 
     }
-
+    bool pasa;
     IEnumerator ShowDialogue()
     {
-        int l = 0;
-        int y = 0;
         int x = thisDialogue.Count;
         if (!yaDesbloqueo)
         {
@@ -536,8 +592,10 @@ public class InteraccionNPC : MonoBehaviour
 
                     if (QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text.Contains(singinificadoParaDesbloquear))
                     {
-                        DialogueManager.intance.dialogos = dialogoDesbloqueo;
+                        DialogueManager.intance.dialogos = dialogoDesbloqueoConPalabra;
+                        isDialogoPalabra = true;
                         yaDesbloqueo = true;
+                        pasa = true;
                     }
                     else
                     {
@@ -545,16 +603,18 @@ public class InteraccionNPC : MonoBehaviour
                     }
                     for (int a = 0; a < Libreta.instance.cosasObservadas.Count; a++)
                     {
-                        if (Libreta.instance.notasObservaciones[a] == QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text)
+                        if (Libreta.instance.notasObservaciones[a] == QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text && !pasa)
                         {
-                            DialogueManager.intance.dialogos = dialogoDesbloqueo;
+                            DialogueManager.intance.dialogos = dialogoDesbloqueoConObservacion;
                             yaDesbloqueo = true;
                             print("Lologre");
                         }
                         else
                         {
-                            SwitchText();
-
+                            if (!pasa)
+                            {
+                                SwitchText();
+                            }
                         }
                     }
                     //foreach (var g in Libreta.instance.notasObservaciones)

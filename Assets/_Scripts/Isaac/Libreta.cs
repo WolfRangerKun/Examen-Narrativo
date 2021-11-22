@@ -29,9 +29,9 @@ public class Libreta : MonoBehaviour
     public List<string> notasObservaciones;
     public List<SignificadosPalabras> sigPalabras;
     public List<GestObserv> cosasObservadas;
-    public Transform panelModismos, panelSig;
+    public Transform panelModismos, panelSig,panelGest ,panelObs;
     public GameObject panelString;
-    public List<GameObject> modLibreta, sigLibreta;
+    public List<GameObject> modLibreta, sigLibreta,gestLibreta ,obsLibreta;
 
     private void Awake()
     {
@@ -86,7 +86,14 @@ public class Libreta : MonoBehaviour
         if (!notasObservaciones.Contains(gesture))
         {
             notasObservaciones.Add(gesture);
+            GameObject gesto = Instantiate(panelString, panelGest);
+            gesto.GetComponentInChildren<TextMeshProUGUI>().text = gesture;
+            gestLibreta.Add(gesto);
+
             cosasObservadas.Add(gesturAction);
+            GameObject observacion = Instantiate(panelString, panelObs);
+            observacion.GetComponentInChildren<TextMeshProUGUI>().text = gesturAction.context[0];
+            obsLibreta.Add(observacion);
         }
         else
         {
@@ -98,6 +105,8 @@ public class Libreta : MonoBehaviour
                     if (!cosasObservadas[i].context.Contains(gesturAction.context[0]))
                     {
                         cosasObservadas[i].context.Add(gesturAction.context[0]);
+                        obsLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text = obsLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text + ", " + gesturAction.context[0];
+
                     }
                     else
                     {
