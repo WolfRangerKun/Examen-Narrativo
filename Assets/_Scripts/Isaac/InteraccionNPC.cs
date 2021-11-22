@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using System.Linq;
-using UnityEngine.UI;
+//using System.Linq;
 
 [System.Serializable]
 public enum SwitchTextos
@@ -11,14 +11,23 @@ public enum SwitchTextos
     RESPUESTADOS = 1,
     RESPUESTATRES = 2
 }
+
+public enum SignificadosWeon
+{
+    Amigo,
+    Tonto
+
+}
 public class InteraccionNPC : MonoBehaviour
 {
     public SwitchTextos switchTextos;
+    public SignificadosWeon sigWeon;
+    public string singinificadoParaDesbloquear;
+
     public Question thisQuestion;
-    public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres;
+    public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres, dialogoDesbloqueo;
     public GameObject cv;
-    public string palabaSearch;
-    
+    bool yaDesbloqueo;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -26,14 +35,55 @@ public class InteraccionNPC : MonoBehaviour
             PlayDialogue();
         }
     }
-    
+
     void ReemplazarPalabra()
     {
-        string fraseOrginial = thisQuestion.question;
+        #region Parapregunta
+        //Para Pregunta
 
         foreach (string z in Libreta.instance.notasPalabras)
         {
-            if (fraseOrginial.Contains(z))
+            string fraseOrginial = thisQuestion.question;
+            #region CodigoGabo
+            //if (fraseOrginial.Contains(z))
+            //{
+            //    string palabraBuena = "";
+            //    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+            //    {
+            //        if (Libreta.instance.notasPalabras[i] == z)
+            //        {
+            //            ////solo funciona si la lista tiene un significado solamente
+            //            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+            //            {
+            //                if (Libreta.instance.sigPalabras[i].significados[e] == palabaSearch)
+            //                {
+            //                    palabraBuena = palabaSearch;
+            //                    Debug.Log("funciona la wea del weon weon weon weon weon");
+            //                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+            //                    thisQuestion.question = nuevaFrase;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            #endregion
+            if (fraseOrginial.Contains(z) && z != "Weon")
+            {
+                string palabraBuena = "";
+                for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                {
+                    if (Libreta.instance.notasPalabras[i] == z)
+                    {
+                        ////solo funciona si la lista tiene un significado solamente
+
+                        palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+                    }
+                }
+                string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                thisQuestion.question = nuevaFrase;
+            }
+
+            if (fraseOrginial.Contains(z) && z == "Weon")
             {
                 string palabraBuena = "";
                 for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
@@ -43,18 +93,393 @@ public class InteraccionNPC : MonoBehaviour
                         ////solo funciona si la lista tiene un significado solamente
                         for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
                         {
-                            if(Libreta.instance.sigPalabras[i].significados[e] == palabaSearch)
+                            if (Libreta.instance.sigPalabras[i].significados[e] == sigWeon.ToString())
                             {
-                                palabraBuena = palabaSearch;
-                                Debug.Log("funciona la wea del weon weon weon weon weon");
+                                palabraBuena = Libreta.instance.sigPalabras[i].significados[e];
                                 string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
                                 thisQuestion.question = nuevaFrase;
                             }
                         }
                     }
                 }
+
             }
         }
+        #endregion
+        #region ParaDialogos
+        foreach (Dialogue d in thisDialogue)
+        {
+            string fraseOrginial = d.dialogo;
+
+            foreach (string z in Libreta.instance.notasPalabras)
+            {
+
+                #region CodigoGabo
+                //if (fraseOrginial.Contains(z))
+                //{
+                //    string palabraBuena = "";
+                //    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                //    {
+                //        if (Libreta.instance.notasPalabras[i] == z)
+                //        {
+                //            ////solo funciona si la lista tiene un significado solamente
+                //            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                //            {
+                //                if (Libreta.instance.sigPalabras[i].significados[e] == palabaSearch)
+                //                {
+                //                    palabraBuena = palabaSearch;
+                //                    Debug.Log("funciona la wea del weon weon weon weon weon");
+                //                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                //                    thisQuestion.question = nuevaFrase;
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+                #endregion
+                if (fraseOrginial.Contains(z) && z != "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+
+                            palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+
+                if (fraseOrginial.Contains(z) && z == "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+                            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                            {
+                                if (Libreta.instance.sigPalabras[i].significados[e] == sigWeon.ToString())
+                                {
+                                    palabraBuena = Libreta.instance.sigPalabras[i].significados[e];
+                                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                                    d.dialogo = nuevaFrase;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        foreach (Dialogue d in dialogueUno)
+        {
+            string fraseOrginial = d.dialogo;
+
+            foreach (string z in Libreta.instance.notasPalabras)
+            {
+
+                #region CodigoGabo
+                //if (fraseOrginial.Contains(z))
+                //{
+                //    string palabraBuena = "";
+                //    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                //    {
+                //        if (Libreta.instance.notasPalabras[i] == z)
+                //        {
+                //            ////solo funciona si la lista tiene un significado solamente
+                //            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                //            {
+                //                if (Libreta.instance.sigPalabras[i].significados[e] == palabaSearch)
+                //                {
+                //                    palabraBuena = palabaSearch;
+                //                    Debug.Log("funciona la wea del weon weon weon weon weon");
+                //                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                //                    thisQuestion.question = nuevaFrase;
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+                #endregion
+                if (fraseOrginial.Contains(z) && z != "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+
+                            palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+
+                if (fraseOrginial.Contains(z) && z == "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+                            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                            {
+                                if (Libreta.instance.sigPalabras[i].significados[e] == sigWeon.ToString())
+                                {
+                                    palabraBuena = Libreta.instance.sigPalabras[i].significados[e];
+                                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                                    d.dialogo = nuevaFrase;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        foreach (Dialogue d in dialogueDos)
+        {
+            string fraseOrginial = d.dialogo;
+
+            foreach (string z in Libreta.instance.notasPalabras)
+            {
+
+                #region CodigoGabo
+                //if (fraseOrginial.Contains(z))
+                //{
+                //    string palabraBuena = "";
+                //    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                //    {
+                //        if (Libreta.instance.notasPalabras[i] == z)
+                //        {
+                //            ////solo funciona si la lista tiene un significado solamente
+                //            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                //            {
+                //                if (Libreta.instance.sigPalabras[i].significados[e] == palabaSearch)
+                //                {
+                //                    palabraBuena = palabaSearch;
+                //                    Debug.Log("funciona la wea del weon weon weon weon weon");
+                //                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                //                    thisQuestion.question = nuevaFrase;
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+                #endregion
+                if (fraseOrginial.Contains(z) && z != "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+
+                            palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+
+                if (fraseOrginial.Contains(z) && z == "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+                            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                            {
+                                if (Libreta.instance.sigPalabras[i].significados[e] == sigWeon.ToString())
+                                {
+                                    palabraBuena = Libreta.instance.sigPalabras[i].significados[e];
+                                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                                    d.dialogo = nuevaFrase;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        foreach (Dialogue d in dialogueTres)
+        {
+            string fraseOrginial = d.dialogo;
+
+            foreach (string z in Libreta.instance.notasPalabras)
+            {
+
+                #region CodigoGabo
+                //if (fraseOrginial.Contains(z))
+                //{
+                //    string palabraBuena = "";
+                //    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                //    {
+                //        if (Libreta.instance.notasPalabras[i] == z)
+                //        {
+                //            ////solo funciona si la lista tiene un significado solamente
+                //            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                //            {
+                //                if (Libreta.instance.sigPalabras[i].significados[e] == palabaSearch)
+                //                {
+                //                    palabraBuena = palabaSearch;
+                //                    Debug.Log("funciona la wea del weon weon weon weon weon");
+                //                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                //                    thisQuestion.question = nuevaFrase;
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+                #endregion
+                if (fraseOrginial.Contains(z) && z != "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+
+                            palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+
+                if (fraseOrginial.Contains(z) && z == "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+                            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                            {
+                                if (Libreta.instance.sigPalabras[i].significados[e] == sigWeon.ToString())
+                                {
+                                    palabraBuena = Libreta.instance.sigPalabras[i].significados[e];
+                                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                                    d.dialogo = nuevaFrase;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        foreach (Dialogue d in dialogoDesbloqueo)
+        {
+            string fraseOrginial = d.dialogo;
+
+            foreach (string z in Libreta.instance.notasPalabras)
+            {
+
+
+                if (fraseOrginial.Contains(z) && z != "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+
+                            palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+
+                if (fraseOrginial.Contains(z) && z == "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+                            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                            {
+                                if (Libreta.instance.sigPalabras[i].significados[e] == sigWeon.ToString())
+                                {
+                                    palabraBuena = Libreta.instance.sigPalabras[i].significados[e];
+                                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                                    d.dialogo = nuevaFrase;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        #endregion
+        #region ParaRespuestaBotones
+        for (int x = 0; x < thisQuestion.replies.Count; x++)
+        {
+            string fraseOrginial = thisQuestion.replies[x];
+
+            foreach (string z in Libreta.instance.notasPalabras)
+            {
+
+                if (fraseOrginial.Contains(z) && z != "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+
+                            palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                    thisQuestion.replies[x] = nuevaFrase;
+                }
+
+                if (fraseOrginial.Contains(z) && z == "Weon")
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
+                    {
+                        if (Libreta.instance.notasPalabras[i] == z)
+                        {
+                            ////solo funciona si la lista tiene un significado solamente
+                            for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
+                            {
+                                if (Libreta.instance.sigPalabras[i].significados[e] == sigWeon.ToString())
+                                {
+                                    palabraBuena = Libreta.instance.sigPalabras[i].significados[e];
+                                    string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
+                                    thisQuestion.replies[x] = nuevaFrase;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        #endregion
     }
 
     void PlayDialogue()
@@ -64,8 +489,15 @@ public class InteraccionNPC : MonoBehaviour
         PlayerMovementIsaac.instance.canMove = false;
         //thisDialogue.FindLast(x => x.dialogo == thisQuestion.question);
         int x = thisDialogue.Count;
-        thisDialogue[x-1].dialogo = thisQuestion.question;
-        DialogueManager.intance.dialogos = thisDialogue;
+        thisDialogue[x - 1].dialogo = thisQuestion.question;
+        if (!yaDesbloqueo)
+        {
+            DialogueManager.intance.dialogos = thisDialogue;
+        }
+        else
+        {
+            DialogueManager.intance.dialogos = dialogoDesbloqueo;
+        }
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
         StartCoroutine(ShowDialogue());
         //thisDialogue.dialogo
@@ -74,35 +506,57 @@ public class InteraccionNPC : MonoBehaviour
 
     IEnumerator ShowDialogue()
     {
+        int l = 0;
         int x = thisDialogue.Count;
-        
-        yield return new WaitUntil(() => DialogueManager.intance.index == x-1);
-        DialogueManager.intance.canContinue = false;
-        QuestionManager.intance.ShowQuestion(thisQuestion);
-
-        yield return new WaitWhile(() => QuestionManager.intance.replies.TrueForAll(x => x.jaja == 0));
-
-
-        for (int i = 0; i < QuestionManager.intance.replies.Count; i++)
+        if (!yaDesbloqueo)
         {
+            yield return new WaitUntil(() => DialogueManager.intance.index == x - 1);
+            DialogueManager.intance.canContinue = false;
+            QuestionManager.intance.ShowQuestion(thisQuestion);
 
-            if (QuestionManager.intance.replies[i].jaja != 0)
+            yield return new WaitWhile(() => QuestionManager.intance.replies.TrueForAll(x => x.jaja == 0));
+
+
+            for (int i = 0; i < QuestionManager.intance.replies.Count; i++)
             {
-                switchTextos = (SwitchTextos)i;
-                QuestionManager.intance.replies[i].jaja = 0;
+
+                if (QuestionManager.intance.replies[i].jaja != 0)
+                {
+                    switchTextos = (SwitchTextos)i;
+
+
+                    if (QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text.Contains(singinificadoParaDesbloquear))
+                    {
+                        DialogueManager.intance.dialogos = dialogoDesbloqueo;
+                        //print("Hay que poner una condicion para que ahora no podamos hablar mas con el como al principio, sino que diga como, muchas gracias o algo asi xd");
+                        yaDesbloqueo = true;
+
+                    }
+                    else
+                    {
+                        SwitchText();
+                    }
+
+                    QuestionManager.intance.replies[i].jaja = 0;
+                }
             }
+            print("Lologre");
+
+            QuestionManager.intance.botones.SetActive(false);
         }
-        
-        QuestionManager.intance.botones.SetActive(false);
-        DialogueManager.intance.index =0;
+       
+        DialogueManager.intance.index = 0;
 
         DialogueManager.intance.canContinue = true;
 
-        SwitchText();
-        DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
-        yield return new WaitUntil(() => DialogueManager.intance.index >0);
+        if (!yaDesbloqueo && l == 0)
+        {
+            DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+            l = 1;
+        }
+        yield return new WaitUntil(() => DialogueManager.intance.index > 0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
-        QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
+        //QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
 
         cv.SetActive(false);
         PlayerMovementIsaac.instance.canMove = true;
@@ -122,7 +576,7 @@ public class InteraccionNPC : MonoBehaviour
             case SwitchTextos.RESPUESTATRES:
                 DialogueManager.intance.dialogos = dialogueTres;
                 break;
-            
+
         }
     }
 
