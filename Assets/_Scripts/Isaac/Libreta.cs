@@ -29,9 +29,9 @@ public class Libreta : MonoBehaviour
     public List<string> notasObservaciones;
     public List<SignificadosPalabras> sigPalabras;
     public List<GestObserv> cosasObservadas;
-    public Transform panelModismos, panelSig,panelGest ,panelObs;
+    public Transform panelModismos, panelSig,panelGest ,panelObs,panelSituacion,panelQueFueSituacion,panelObj,panelQueFueObj;
     public GameObject panelString;
-    public List<GameObject> modLibreta, sigLibreta,gestLibreta ,obsLibreta;
+    public List<GameObject> modLibreta, sigLibreta,gestLibreta ,obsLibreta,situLibreta, queFueSituLibreta, objeLibreta,queFueObjLibreta;
 
     private void Awake()
     {
@@ -85,15 +85,44 @@ public class Libreta : MonoBehaviour
     {
         if (!notasObservaciones.Contains(gesture))
         {
-            notasObservaciones.Add(gesture);
-            GameObject gesto = Instantiate(panelString, panelGest);
-            gesto.GetComponentInChildren<TextMeshProUGUI>().text = gesture;
-            gestLibreta.Add(gesto);
+            switch (gesturAction.clasifcationObserv)
+            {
+                case GestObserv.OBSERVADO.Gesto:
+                    notasObservaciones.Add(gesture);
+                    GameObject gesto = Instantiate(panelString, panelGest);
+                    gesto.GetComponentInChildren<TextMeshProUGUI>().text = gesture;
+                    gestLibreta.Add(gesto);
 
-            cosasObservadas.Add(gesturAction);
-            GameObject observacion = Instantiate(panelString, panelObs);
-            observacion.GetComponentInChildren<TextMeshProUGUI>().text = gesturAction.context[0];
-            obsLibreta.Add(observacion);
+                    cosasObservadas.Add(gesturAction);
+                    GameObject observacion = Instantiate(panelString, panelObs);
+                    observacion.GetComponentInChildren<TextMeshProUGUI>().text = gesturAction.context[0];
+                    obsLibreta.Add(observacion);
+                    break;
+                case GestObserv.OBSERVADO.Situacion:
+                    notasObservaciones.Add(gesture);
+                    GameObject situaicon = Instantiate(panelString, panelQueFueSituacion);
+                    situaicon.GetComponentInChildren<TextMeshProUGUI>().text = gesture;
+                    situLibreta.Add(situaicon);
+
+                    cosasObservadas.Add(gesturAction);
+                    GameObject obser = Instantiate(panelString, panelSituacion);
+                    obser.GetComponentInChildren<TextMeshProUGUI>().text = gesturAction.context[0];
+                    queFueSituLibreta.Add(obser);
+                    break;
+                case GestObserv.OBSERVADO.Objeto:
+                    notasObservaciones.Add(gesture);
+                    GameObject obj = Instantiate(panelString, panelQueFueObj);
+                    obj.GetComponentInChildren<TextMeshProUGUI>().text = gesture;
+                    objeLibreta.Add(obj);
+
+                    cosasObservadas.Add(gesturAction);
+                    GameObject obsers = Instantiate(panelString, panelObj);
+                    obsers.GetComponentInChildren<TextMeshProUGUI>().text = gesturAction.context[0];
+                    queFueObjLibreta.Add(obsers);
+                    break;
+              
+            }
+            
         }
         else
         {
@@ -104,8 +133,21 @@ public class Libreta : MonoBehaviour
                     GestObserv a = cosasObservadas[i];
                     if (!cosasObservadas[i].context.Contains(gesturAction.context[0]))
                     {
-                        cosasObservadas[i].context.Add(gesturAction.context[0]);
-                        obsLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text = obsLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text + ", " + gesturAction.context[0];
+                        switch (gesturAction.clasifcationObserv)
+                        {
+                            case GestObserv.OBSERVADO.Gesto:
+                                cosasObservadas[i].context.Add(gesturAction.context[0]);
+                                obsLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text = obsLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text + ", " + gesturAction.context[0];
+                                break;
+                            case GestObserv.OBSERVADO.Situacion:
+                                cosasObservadas[i].context.Add(gesturAction.context[0]);
+                                queFueSituLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text = queFueSituLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text + ", " + gesturAction.context[0];
+                                break;
+                            case GestObserv.OBSERVADO.Objeto:
+                                cosasObservadas[i].context.Add(gesturAction.context[0]);
+                                queFueObjLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text = queFueObjLibreta[i].GetComponentInChildren<TextMeshProUGUI>().text + ", " + gesturAction.context[0];
+                                break;
+                        }
 
                     }
                     else

@@ -38,7 +38,35 @@ public class InteraccionNPC : MonoBehaviour
             PlayDialogue();
         }
     }
+    void PlayDialogue()
+    {
+        ReemplazarPalabra();
+        cv.SetActive(true);
+        PlayerMovementIsaac.instance.canMove = false;
+        //thisDialogue.FindLast(x => x.dialogo == thisQuestion.question);
+        int x = thisDialogue.Count;
+        thisDialogue[x - 1].dialogo = thisQuestion.question;
+        if (!yaDesbloqueo)
+        {
+            DialogueManager.intance.dialogos = thisDialogue;
+        }
+        else
+        {
+            if (isDialogoPalabra)
+            {
+                DialogueManager.intance.dialogos = dialogoDesbloqueoConPalabra;
 
+            }
+            else
+            {
+                DialogueManager.intance.dialogos = dialogoDesbloqueoConObservacion;
+
+            }
+        }
+        DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        StartCoroutine(ShowDialogue());
+        //thisDialogue.dialogo
+    }
     void ReemplazarPalabra()
     {
         #region Parapregunta
@@ -77,7 +105,6 @@ public class InteraccionNPC : MonoBehaviour
                 {
                     if (Libreta.instance.notasPalabras[i] == z)
                     {
-                        ////solo funciona si la lista tiene un significado solamente
 
                         palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
                     }
@@ -93,7 +120,6 @@ public class InteraccionNPC : MonoBehaviour
                 {
                     if (Libreta.instance.notasPalabras[i] == z)
                     {
-                        ////solo funciona si la lista tiene un significado solamente
                         for (int e = 0; e < Libreta.instance.sigPalabras[i].significados.Count; e++)
                         {
                             if (Libreta.instance.sigPalabras[i].significados[e] == sigWeon.ToString())
@@ -106,6 +132,26 @@ public class InteraccionNPC : MonoBehaviour
                     }
                 }
 
+            }
+           
+        }
+        foreach (var o in Libreta.instance.cosasObservadas)
+        {
+            string fraseOrginialDos = thisQuestion.question;
+
+            if (fraseOrginialDos.Contains(o.context[0]))
+            {
+                string palabraBuena = "";
+                for (int i = 0; i < Libreta.instance.cosasObservadas.Count; i++)
+                {
+                    if (Libreta.instance.cosasObservadas[i] == o)
+                    {
+
+                        palabraBuena = Libreta.instance.notasObservaciones[i];
+                    }
+                }
+                string nuevaFrase = fraseOrginialDos.Replace(o.context[0], palabraBuena);
+                thisQuestion.question = nuevaFrase;
             }
         }
         #endregion
@@ -178,6 +224,25 @@ public class InteraccionNPC : MonoBehaviour
 
                 }
             }
+            foreach (var o in Libreta.instance.cosasObservadas)
+            {
+                string fraseOrginialDos = d.dialogo;
+
+                if (fraseOrginialDos.Contains(o.context[0]))
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.cosasObservadas.Count; i++)
+                    {
+                        if (Libreta.instance.cosasObservadas[i] == o)
+                        {
+
+                            palabraBuena = Libreta.instance.notasObservaciones[i];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginialDos.Replace(o.context[0], palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+            }
         }
         foreach (Dialogue d in dialogueUno)
         {
@@ -245,6 +310,25 @@ public class InteraccionNPC : MonoBehaviour
                         }
                     }
 
+                }
+            }
+            foreach (var o in Libreta.instance.cosasObservadas)
+            {
+                string fraseOrginialDos = d.dialogo;
+
+                if (fraseOrginialDos.Contains(o.context[0]))
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.cosasObservadas.Count; i++)
+                    {
+                        if (Libreta.instance.cosasObservadas[i] == o)
+                        {
+
+                            palabraBuena = Libreta.instance.notasObservaciones[i];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginialDos.Replace(o.context[0], palabraBuena);
+                    d.dialogo = nuevaFrase;
                 }
             }
         }
@@ -316,6 +400,25 @@ public class InteraccionNPC : MonoBehaviour
 
                 }
             }
+            foreach (var o in Libreta.instance.cosasObservadas)
+            {
+                string fraseOrginialDos = d.dialogo;
+
+                if (fraseOrginialDos.Contains(o.context[0]))
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.cosasObservadas.Count; i++)
+                    {
+                        if (Libreta.instance.cosasObservadas[i] == o)
+                        {
+
+                            palabraBuena = Libreta.instance.notasObservaciones[i];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginialDos.Replace(o.context[0], palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+            }
         }
         foreach (Dialogue d in dialogueTres)
         {
@@ -385,6 +488,25 @@ public class InteraccionNPC : MonoBehaviour
 
                 }
             }
+            foreach (var o in Libreta.instance.cosasObservadas)
+            {
+                string fraseOrginialDos = d.dialogo;
+
+                if (fraseOrginialDos.Contains(o.context[0]))
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.cosasObservadas.Count; i++)
+                    {
+                        if (Libreta.instance.cosasObservadas[i] == o)
+                        {
+
+                            palabraBuena = Libreta.instance.notasObservaciones[i];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginialDos.Replace(o.context[0], palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+            }
         }
         foreach (Dialogue d in dialogoDesbloqueoConPalabra)
         {
@@ -430,6 +552,25 @@ public class InteraccionNPC : MonoBehaviour
                         }
                     }
 
+                }
+            }
+            foreach (var o in Libreta.instance.cosasObservadas)
+            {
+                string fraseOrginialDos = d.dialogo;
+
+                if (fraseOrginialDos.Contains(o.context[0]))
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.cosasObservadas.Count; i++)
+                    {
+                        if (Libreta.instance.cosasObservadas[i] == o)
+                        {
+
+                            palabraBuena = Libreta.instance.notasObservaciones[i];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginialDos.Replace(o.context[0], palabraBuena);
+                    d.dialogo = nuevaFrase;
                 }
             }
         }
@@ -479,6 +620,25 @@ public class InteraccionNPC : MonoBehaviour
 
                 }
             }
+            foreach (var o in Libreta.instance.cosasObservadas)
+            {
+                string fraseOrginialDos = d.dialogo;
+
+                if (fraseOrginialDos.Contains(o.context[0]))
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.cosasObservadas.Count; i++)
+                    {
+                        if (Libreta.instance.cosasObservadas[i] == o)
+                        {
+
+                            palabraBuena = Libreta.instance.notasObservaciones[i];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginialDos.Replace(o.context[0], palabraBuena);
+                    d.dialogo = nuevaFrase;
+                }
+            }
         }
 
 
@@ -526,49 +686,32 @@ public class InteraccionNPC : MonoBehaviour
                             }
                         }
                     }
+                }
+            }
+            foreach (var o in Libreta.instance.cosasObservadas)
+            {
+                string fraseOrginialDos = thisQuestion.replies[x];
 
+                if (fraseOrginialDos.Contains(o.context[0]))
+                {
+                    string palabraBuena = "";
+                    for (int i = 0; i < Libreta.instance.cosasObservadas.Count; i++)
+                    {
+                        if (Libreta.instance.cosasObservadas[i] == o)
+                        {
+
+                            palabraBuena = Libreta.instance.notasObservaciones[i];
+                        }
+                    }
+                    string nuevaFrase = fraseOrginialDos.Replace(o.context[0], palabraBuena);
+                    thisQuestion.replies[x] = nuevaFrase;
                 }
             }
         }
         #endregion
     }
 
-    void PlayDialogue()
-    {
-        MencionObservacion();
-        ReemplazarPalabra();
-        cv.SetActive(true);
-        PlayerMovementIsaac.instance.canMove = false;
-        //thisDialogue.FindLast(x => x.dialogo == thisQuestion.question);
-        int x = thisDialogue.Count;
-        thisDialogue[x - 1].dialogo = thisQuestion.question;
-        if (!yaDesbloqueo)
-        {
-            DialogueManager.intance.dialogos = thisDialogue;
-        }
-        else
-        {
-            if (isDialogoPalabra)
-            {
-                DialogueManager.intance.dialogos = dialogoDesbloqueoConPalabra;
-
-            }
-            else
-            {
-                DialogueManager.intance.dialogos = dialogoDesbloqueoConObservacion;
-
-            }
-        }
-        DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
-        StartCoroutine(ShowDialogue());
-        //thisDialogue.dialogo
-    }
-
-
-    void MencionObservacion()
-    {
-
-    }
+    
     bool pasa;
     IEnumerator ShowDialogue()
     {
