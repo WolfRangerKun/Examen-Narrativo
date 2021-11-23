@@ -16,8 +16,7 @@ public class InteractionBook : MonoBehaviour
             book.FlipRightPage();
 
         }
-
     }
-
+    
 
 }
