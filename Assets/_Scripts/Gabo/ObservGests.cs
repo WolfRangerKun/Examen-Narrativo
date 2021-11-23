@@ -10,7 +10,7 @@ public class ObservGests : MonoBehaviour
     public GameObject cv;
     public IEnumerator Situacion()
     {
-        if (gestoObservable.clasifcationObserv ==GestObserv.OBSERVADO.Situacion)
+        if (gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Situacion /*|| gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Gesto*/)
         {
             cv.SetActive(true);
             PlayerMovementIsaac.instance.canMove = false;
@@ -21,6 +21,8 @@ public class ObservGests : MonoBehaviour
             yield return new WaitUntil(() => DialogueManager.intance.index == 0);
             cv.SetActive(false);
             PlayerMovementIsaac.instance.canMove = true;
+            yield break;
+
         }
         else
         {

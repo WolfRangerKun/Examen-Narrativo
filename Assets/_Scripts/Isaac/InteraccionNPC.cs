@@ -607,6 +607,7 @@ public class InteraccionNPC : MonoBehaviour
                         {
                             DialogueManager.intance.dialogos = dialogoDesbloqueoConObservacion;
                             yaDesbloqueo = true;
+                            pasa = true;
                             print("Lologre");
                         }
                         else
