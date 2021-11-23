@@ -27,6 +27,7 @@ public class RayObservation : MonoBehaviour
             {
                 hit.transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
                 Libreta.instance.RegisterGeturess(hit.transform.gameObject.GetComponent<ObservGests>().descripcion, hit.transform.gameObject.GetComponent<ObservGests>().gestoObservable);
+                StartCoroutine(hit.transform.gameObject.GetComponent<ObservGests>().Situacion());
             }
         }
     }
