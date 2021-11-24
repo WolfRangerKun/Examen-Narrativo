@@ -100,7 +100,12 @@ public class PlayerMovementIsaac : MonoBehaviour
             }
             else
             {
-                sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                if (moveInput.y != 0)
+                {
+                    sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                }
+                else
+                    sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
 
             }
         }

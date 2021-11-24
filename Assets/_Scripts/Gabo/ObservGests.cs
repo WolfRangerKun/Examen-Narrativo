@@ -20,7 +20,7 @@ public class ObservGests : MonoBehaviour
             yield return new WaitUntil(() => DialogueManager.intance.index >= DialogueManager.intance.dialogos.Count - 1);
             yield return new WaitUntil(() => DialogueManager.intance.index == 0);
             cv.SetActive(false);
-            PlayerMovementIsaac.instance.canMove = true;
+            //PlayerMovementIsaac.instance.canMove = true;
             yield break;
 
         }
