@@ -83,17 +83,25 @@ public class PlayerMovementIsaac : MonoBehaviour
 
         if (moveInput.x < 0)
         {
-            sprite.flipX = false;
+            sprite.flipX = true;
             right.SetActive(false);
             left.SetActive(true);
+            sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
         }
         else
         {
             if (moveInput.x > 0)
             {
-                sprite.flipX = true;
+                sprite.flipX = false;
                 right.SetActive(true);
                 left.SetActive(false);
+                sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+
+            }
+            else
+            {
+                sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+
             }
         }
        
