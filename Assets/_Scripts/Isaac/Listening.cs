@@ -23,7 +23,7 @@ public class Listening : MonoBehaviour
     }
     private void Update()
     {
-        if (canSeePlayer && Input.GetKeyDown(KeyCode.Return))
+        if (canSeePlayer && Input.GetMouseButtonDown(0))
         {
             Escuchando();
         }

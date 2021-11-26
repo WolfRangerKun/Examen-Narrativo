@@ -19,7 +19,7 @@ public class RayObservation : MonoBehaviour
     public void Update()
     {
         //cameraSwitch = FindObjectOfType<CinemachineVirtualCamera>().Priority = h
-        if (player.changeCamera && Input.GetKeyDown(KeyCode.E))
+        if (player.changeCamera && Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Debug.DrawRay(/*cameraSwitch.position*/ transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.blue, distanceRay);

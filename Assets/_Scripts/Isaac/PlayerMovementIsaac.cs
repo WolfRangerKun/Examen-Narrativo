@@ -1,7 +1,11 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.Events;
 using Cinemachine;
 using DG.Tweening;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
 
 
 public class PlayerMovementIsaac : MonoBehaviour
@@ -26,6 +30,7 @@ public class PlayerMovementIsaac : MonoBehaviour
     public GameObject left, right,posUp,posDown, libreta;
     bool showLibro;
 
+     bool isInOtherSide;
     private void Awake()
     {
         instance = this;
@@ -38,7 +43,7 @@ public class PlayerMovementIsaac : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             Librito();
         }
@@ -69,49 +74,19 @@ public class PlayerMovementIsaac : MonoBehaviour
             rb.velocity += new Vector3(0, jump /**40* Time.deltaTime*/, 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             CamaraChange();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ActiveAudio();
         }
 
-
-
-        if (moveInput.x < 0)
-        {
-            sprite.flipX = true;
-            right.SetActive(false);
-            left.SetActive(true);
-            sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-        }
-        else
-        {
-            if (moveInput.x > 0)
-            {
-                sprite.flipX = false;
-                right.SetActive(true);
-                left.SetActive(false);
-                sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-
-            }
-            else
-            {
-                if (moveInput.y != 0)
-                {
-                    sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-                }
-                else
-                    sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-
-            }
-        }
-       
+        SpriteAndCameraAxis();
     }
-
+    
     private void FixedUpdate()
     {
         if (canMove)
@@ -120,10 +95,97 @@ public class PlayerMovementIsaac : MonoBehaviour
             moveInput.y = Input.GetAxis("Vertical");
             moveInput.Normalize();
 
-            rb.velocity = new Vector3(moveInput.x * speed /**40* Time.deltaTime*/, rb.velocity.y, moveInput.y * speed/**40 * Time.deltaTime*/);
+            if (isInOtherSide)
+            {
+                rb.velocity = new Vector3(moveInput.x * speed /**40* Time.deltaTime*/, rb.velocity.y, moveInput.y * speed /**40 * Time.deltaTime*/);
+            }
+            else
+            {
+                rb.velocity = new Vector3(moveInput.x * speed * -1 /**40* Time.deltaTime*/, rb.velocity.y, moveInput.y * speed * -1/**40 * Time.deltaTime*/);
+            }
         }
     }
 
+    public void ChangeMovementAxis()
+    {
+        StartCoroutine(Pasara());
+    }
+    
+    IEnumerator Pasara()
+    {
+        yield return new WaitForSeconds(.6f);
+        isInOtherSide = !isInOtherSide;
+    }
+    void SpriteAndCameraAxis()
+    {
+        switch (isInOtherSide)
+        {
+            case true:
+                print("ppp");
+                if (moveInput.x < 0)
+                {
+                    sprite.flipX = true;
+                    right.SetActive(false);
+                    left.SetActive(true);
+                    sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                }
+                else
+                {
+                    if (moveInput.x > 0)
+                    {
+                        sprite.flipX = false;
+                        right.SetActive(true);
+                        left.SetActive(false);
+                        sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+
+                    }
+                    else
+                    {
+                        if (moveInput.y != 0)
+                        {
+                            sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                        }
+                        else
+                            sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+
+                    }
+                }
+                break;
+            case false:
+                print("qqq");
+
+                if (moveInput.x < 0)
+                {
+                    sprite.flipX = false;
+                    right.SetActive(true);
+                    left.SetActive(false);
+                    sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                }
+                else
+                {
+                    if (moveInput.x > 0)
+                    {
+                        sprite.flipX = true;
+                        right.SetActive(false);
+                        left.SetActive(true);
+                        sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+
+                    }
+                    else
+                    {
+                        if (moveInput.y != 0)
+                        {
+                            sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                        }
+                        else
+                            sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+
+                    }
+                }
+                break;
+        }
+
+    }
     void CamaraChange()
     {
         changeCamera = !changeCamera;
