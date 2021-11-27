@@ -1,22 +1,54 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 
 public class VolumeManager : MonoBehaviour
 {
-    public Volume volumeLisening;
-    public Volume volumeObsevacion;
+    public static VolumeManager instance;
+    public Volume volumeLisening, volumeObsevacion;
 
-
-    void Start()
+    private void Awake()
     {
-        
+        instance = this;
     }
 
-    void Update()
+    public IEnumerator LiseningFiltroIn()
     {
-        
+        while (volumeLisening.weight < 1 && true)
+        {
+            volumeLisening.weight += .1f;
+            yield return new WaitForSeconds(.1f);
+        }
+        yield break;
+    }
+
+    public IEnumerator LiseningFiltroOut()
+    {
+        while (volumeLisening.weight > 0 && true)
+        {
+            volumeLisening.weight -= .1f;
+            yield return new WaitForSeconds(.1f);
+        }
+        yield break;
+    }
+
+    public IEnumerator ObsFiltroIn()
+    {
+        while (volumeObsevacion.weight < 1 && true)
+        {
+            volumeObsevacion.weight += .1f;
+            yield return new WaitForSeconds(.1f);
+        }
+        yield break;
+    }
+
+    public IEnumerator ObsFiltroOut()
+    {
+        while (volumeObsevacion.weight > 0 && true)
+        {
+            volumeObsevacion.weight -= .1f;
+            yield return new WaitForSeconds(.1f);
+        }
+        yield break;
     }
 }

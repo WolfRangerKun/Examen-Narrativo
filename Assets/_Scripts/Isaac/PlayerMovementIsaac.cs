@@ -28,8 +28,11 @@ public class PlayerMovementIsaac : MonoBehaviour
 
     public GameObject left, right,posUp,posDown, libreta;
     bool showLibro;
-
-     bool isInOtherSide;
+    bool canChangeCamera = true;
+    bool canChangeAudio = true;
+    bool canLibrito = true;
+    bool canPlayLibrito;
+    bool isInOtherSide;
     private void Awake()
     {
         instance = this;
@@ -42,46 +45,23 @@ public class PlayerMovementIsaac : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            Librito();
-        }
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            book.FlipLeftPage();
+        //RaycastHit hit;
+        //if (Physics.Raycast(groundPoint.position, Vector3.down, out hit, .01f, whatIsGround))
+        //{
+        //    isGrounded = true;
+        //}
+        //else
+        //{
+        //    isGrounded = false;
+        //}
 
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) && isGrounded && canMove)
+        //{
+        //    rb.velocity += new Vector3(0, jump /**40* Time.deltaTime*/, 0);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            book.FlipRightPage();
-
-        }
-        RaycastHit hit;
-        if (Physics.Raycast(groundPoint.position, Vector3.down, out hit, .01f, whatIsGround))
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && canMove)
-        {
-            rb.velocity += new Vector3(0, jump /**40* Time.deltaTime*/, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            CamaraChange();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ActiveAudio();
-        }
+        Controls();
 
         SpriteAndCameraAxis();
     }
@@ -115,12 +95,60 @@ public class PlayerMovementIsaac : MonoBehaviour
         yield return new WaitForSeconds(.6f);
         isInOtherSide = !isInOtherSide;
     }
+
+    void Controls()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab) && canLibrito)
+        {
+            Librito();
+            StartCoroutine(ActiveLibrito());
+            canLibrito = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.O) && canPlayLibrito)
+        {
+            book.FlipLeftPage();
+        }
+
+        if (Input.GetKeyDown(KeyCode.P) && canPlayLibrito)
+        {
+            book.FlipRightPage();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && canChangeCamera)
+        {
+            CamaraChange();
+            StartCoroutine(ActiveCameraBool());
+            canChangeCamera = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) && canChangeAudio)
+        {
+            ActiveAudio();
+            StartCoroutine(ActiveAudioBool());
+            canChangeAudio = false;
+        }
+    }
+
+    IEnumerator ActiveCameraBool()
+    {
+        yield return new WaitForSeconds(1.5f);
+        canChangeCamera = true;
+    }
+    IEnumerator ActiveAudioBool()
+    {
+        yield return new WaitForSeconds(1.5f);
+        canChangeAudio = true;
+    }
+    IEnumerator ActiveLibrito()
+    {
+        yield return new WaitForSeconds(1f);
+        canLibrito = true;
+    }
     void SpriteAndCameraAxis()
     {
         switch (isInOtherSide)
         {
             case true:
-                print("ppp");
                 if (moveInput.x < 0)
                 {
                     sprite.flipX = true;
@@ -151,7 +179,6 @@ public class PlayerMovementIsaac : MonoBehaviour
                 }
                 break;
             case false:
-                print("qqq");
 
                 if (moveInput.x < 0)
                 {
@@ -191,6 +218,7 @@ public class PlayerMovementIsaac : MonoBehaviour
 
         if (changeCamera)
         {
+            StartCoroutine(VolumeManager.instance.ObsFiltroIn());
             cameraPrimera?.Invoke();
             canMove = false;
         }
@@ -198,6 +226,7 @@ public class PlayerMovementIsaac : MonoBehaviour
         {
             if (!changeCamera)
             {
+                StartCoroutine(VolumeManager.instance.ObsFiltroOut());
                 canMove = true;
                 cameraTercera?.Invoke();
             }
@@ -208,14 +237,18 @@ public class PlayerMovementIsaac : MonoBehaviour
         isListeing = !isListeing;
         if (isListeing)
         {
+            StartCoroutine(VolumeManager.instance.LiseningFiltroIn());
             dd.SetActive(true);
             canMove = false;
-
         }
         else
         {
             if (!isListeing)
             {
+
+
+                StartCoroutine(VolumeManager.instance.LiseningFiltroOut());
+
                 canMove = true;
 
                 dd.SetActive(false);
@@ -231,15 +264,25 @@ public class PlayerMovementIsaac : MonoBehaviour
 
         if (showLibro)
         {
+            canPlayLibrito = true;
             libreta.transform.DOMove(posDown.transform.position, 1f);
         }
         else
         {
             if (!showLibro)
             {
-                libreta.transform.DOMove(posUp.transform.position, 1f);
+                canPlayLibrito = false;
 
+                libreta.transform.DOMove(posUp.transform.position, 1f);
+                StartCoroutine(CerrarLibro());
             }
         }
+    }
+
+    IEnumerator CerrarLibro()
+    {
+        yield return new WaitForSeconds(1);
+        libreta.GetComponent<BookPro>().CurrentPaper = 0;
+        yield break;
     }
 }

@@ -85,6 +85,8 @@ public class Listening : MonoBehaviour
 
     public IEnumerator Escuchar()
     {
+        //StartCoroutine(VolumeManager.instance.LiseningFiltroIn());
+        //yield return new WaitWhile(() => VolumeManager.instance.LiseningFiltroIn().MoveNext());
         print("Corrutina");
         PlayerMovementIsaac.instance.canMove = false;
         StartCoroutine(StartFade(fondo, 1, .1f));
