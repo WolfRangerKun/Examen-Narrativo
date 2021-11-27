@@ -264,6 +264,8 @@ public class PlayerMovementIsaac : MonoBehaviour
 
         if (showLibro)
         {
+            StartCoroutine(VolumeManager.instance.LibroFiltroIn());
+
             canPlayLibrito = true;
             libreta.transform.DOMove(posDown.transform.position, 1f);
         }
@@ -271,6 +273,8 @@ public class PlayerMovementIsaac : MonoBehaviour
         {
             if (!showLibro)
             {
+                StartCoroutine(VolumeManager.instance.LibroFiltroOut());
+
                 canPlayLibrito = false;
 
                 libreta.transform.DOMove(posUp.transform.position, 1f);

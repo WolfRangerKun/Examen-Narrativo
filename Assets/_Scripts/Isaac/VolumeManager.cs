@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 public class VolumeManager : MonoBehaviour
 {
     public static VolumeManager instance;
-    public Volume volumeLisening, volumeObsevacion;
+    public Volume volumeLisening, volumeObsevacion, volumeLibrito;
 
     private void Awake()
     {
@@ -47,6 +47,26 @@ public class VolumeManager : MonoBehaviour
         while (volumeObsevacion.weight > 0 && true)
         {
             volumeObsevacion.weight -= .1f;
+            yield return new WaitForSeconds(.1f);
+        }
+        yield break;
+    }
+
+    public IEnumerator LibroFiltroIn()
+    {
+        while (volumeLibrito.weight < 1 && true)
+        {
+            volumeLibrito.weight += .1f;
+            yield return new WaitForSeconds(.1f);
+        }
+        yield break;
+    }
+
+    public IEnumerator LibroFiltroOut()
+    {
+        while (volumeLibrito.weight > 0 && true)
+        {
+            volumeLibrito.weight -= .1f;
             yield return new WaitForSeconds(.1f);
         }
         yield break;
