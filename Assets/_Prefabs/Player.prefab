@@ -223,7 +223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 513601131}
   m_LocalRotation: {x: 0, y: 0.9945219, z: -0.10452846, w: 0}
-  m_LocalPosition: {x: 0, y: 4.1304345, z: 11.521739}
+  m_LocalPosition: {x: 0, y: 4.130435, z: 8.861513}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 759053737}
@@ -450,13 +450,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 782209551}
-  m_LocalRotation: {x: -0.5653844, y: -0.41226512, z: -0.42091203, w: 0.5772444}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.3960783, y: -0.032062758, z: 7.284276}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: -0, y: 0.002, z: 0.298}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2185832431039951942}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -88.811, y: -0.002, z: -136.442}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 180}
 --- !u!198 &782209553
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -709,7 +709,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 24
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5286,7 +5286,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279796711}
   m_LocalRotation: {x: -0.00000038731372, y: -0.6556229, z: 0.7550806, w: -0.0034488195}
-  m_LocalPosition: {x: -0.0000062337076, y: 18.00558, z: -3.166378}
+  m_LocalPosition: {x: -0.000003682916, y: 15.99722, z: -4.9101973}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 70719865}
@@ -6268,7 +6268,7 @@ Transform:
   m_GameObject: {fileID: 594579869174242074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.612, z: 0}
-  m_LocalScale: {x: 0.92, y: 0.92, z: 0.92}
+  m_LocalScale: {x: 0.92, y: 0.92, z: 1.196184}
   m_Children:
   - {fileID: 594579869206776027}
   - {fileID: 594579870073795099}
@@ -7353,7 +7353,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   canSeePlayer: 0
-  fondo: {fileID: 1636151191}
+  fondo: {fileID: 0}
   talk: {fileID: 2143282805}
 --- !u!114 &1271056502453222737
 MonoBehaviour:
@@ -7626,7 +7626,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7584662060047411823}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.000015861828, y: 0.608696, z: -18.27174}
+  m_LocalPosition: {x: 0.000013311035, y: 2.6170588, z: -16.52792}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6201574555073061154}
