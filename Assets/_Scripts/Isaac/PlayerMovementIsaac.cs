@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Events;
 using Cinemachine;
 using DG.Tweening;
@@ -27,6 +28,7 @@ public class PlayerMovementIsaac : MonoBehaviour
     public UnityEvent cameraTercera,cameraPrimera;
 
     public GameObject left, right,posUp,posDown, libreta;
+    public List<GameObject> shadows;
     bool showLibro;
     bool canChangeCamera = true;
     bool canChangeAudio = true;
@@ -185,6 +187,9 @@ public class PlayerMovementIsaac : MonoBehaviour
                     sprite.flipX = false;
                     right.SetActive(true);
                     left.SetActive(false);
+                    shadows[1].SetActive(false);
+                    shadows[0].SetActive(true);
+
                     sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
                 }
                 else
@@ -195,7 +200,8 @@ public class PlayerMovementIsaac : MonoBehaviour
                         right.SetActive(false);
                         left.SetActive(true);
                         sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
-
+                        shadows[0].SetActive(false);
+                        shadows[1].SetActive(true);
                     }
                     else
                     {
@@ -245,8 +251,6 @@ public class PlayerMovementIsaac : MonoBehaviour
         {
             if (!isListeing)
             {
-
-
                 StartCoroutine(VolumeManager.instance.LiseningFiltroOut());
 
                 canMove = true;
