@@ -146,6 +146,8 @@ public class PlayerMovementIsaac : MonoBehaviour
         yield return new WaitForSeconds(1f);
         canLibrito = true;
     }
+    bool playAudio = true;
+    public AudioSource steps;
     void SpriteAndCameraAxis()
     {
         switch (isInOtherSide)
@@ -156,7 +158,14 @@ public class PlayerMovementIsaac : MonoBehaviour
                     sprite.flipX = true;
                     right.SetActive(false);
                     left.SetActive(true);
+                    shadows[0].SetActive(false);
+                    shadows[1].SetActive(true);
                     sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                    if (playAudio)
+                    {
+                        steps.Play();
+                        playAudio = false;
+                    }
                 }
                 else
                 {
@@ -165,17 +174,33 @@ public class PlayerMovementIsaac : MonoBehaviour
                         sprite.flipX = false;
                         right.SetActive(true);
                         left.SetActive(false);
+                        shadows[1].SetActive(false);
+                        shadows[0].SetActive(true);
                         sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+
+                        if (playAudio)
+                        {
+                            steps.Play();
+                            playAudio = false;
+                        }
 
                     }
                     else
                     {
-                        if (moveInput.y != 0)
+                        if (moveInput.y > 0 || moveInput.y < 0)
                         {
                             sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+
+                            if (playAudio)
+                            {
+                                steps.Play();
+                                playAudio = false;
+                            }
                         }
                         else
                             sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
+                            steps.Stop();
+                            playAudio = true;
 
                     }
                 }
@@ -191,6 +216,11 @@ public class PlayerMovementIsaac : MonoBehaviour
                     shadows[0].SetActive(true);
 
                     sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                    if (playAudio)
+                    {
+                        steps.Play();
+                        playAudio = false;
+                    }
                 }
                 else
                 {
@@ -202,16 +232,27 @@ public class PlayerMovementIsaac : MonoBehaviour
                         sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
                         shadows[0].SetActive(false);
                         shadows[1].SetActive(true);
+                        if (playAudio)
+                        {
+                            steps.Play();
+                            playAudio = false;
+                        }
                     }
                     else
                     {
-                        if (moveInput.y != 0)
+                        if (moveInput.y > 0 || moveInput.y < 0)
                         {
                             sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", true);
+                            if (playAudio)
+                            {
+                                steps.Play();
+                                playAudio = false;
+                            }
                         }
                         else
                             sprite.gameObject.GetComponent<Animator>().SetBool("IsWalking", false);
-
+                            steps.Stop();
+                            playAudio = true;
                     }
                 }
                 break;
