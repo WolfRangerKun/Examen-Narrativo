@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/Menu.unity
+    guid: 7b8dcf95453baaf46a9e0b7c2184f8de
+  - enabled: 1
+    path: Assets/_Scenes/Garmando.unity
+    guid: 85900ca65fe5c6a4c98219bb11609481
+  - enabled: 1
+    path: Assets/_Scenes/Lastarria.unity
+    guid: aee478bcb617b594ebbbbb048a9b2d68
   m_configObjects: {}

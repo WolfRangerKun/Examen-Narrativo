@@ -27,7 +27,7 @@ public class PlayerMovementIsaac : MonoBehaviour
     public bool isGrounded, canMove, changeCamera;
     public UnityEvent cameraTercera,cameraPrimera;
 
-    public GameObject left, right,posUp,posDown, libreta;
+    public GameObject left, right,posUp,posDown, libreta, miraObs;
     public List<GameObject> shadows;
     bool showLibro;
     bool canChangeCamera = true;
@@ -272,6 +272,8 @@ public class PlayerMovementIsaac : MonoBehaviour
         {
             StartCoroutine(VolumeManager.instance.ObsFiltroIn());
             cameraPrimera?.Invoke();
+            miraObs.SetActive(true);
+
             canMove = false;
             canLibrito = false;
             canChangeAudio = false;
@@ -282,6 +284,8 @@ public class PlayerMovementIsaac : MonoBehaviour
             {
                 StartCoroutine(VolumeManager.instance.ObsFiltroOut());
                 canMove = true;
+                miraObs.SetActive(false);
+
                 cameraTercera?.Invoke();
                 canLibrito = true;
                 canChangeAudio = true;
@@ -322,6 +326,7 @@ public class PlayerMovementIsaac : MonoBehaviour
         if (showLibro)
         {
             StartCoroutine(VolumeManager.instance.LibroFiltroIn());
+            canMove = false;
 
             canPlayLibrito = true;
             libreta.transform.DOMove(posDown.transform.position, 1f);
@@ -333,6 +338,7 @@ public class PlayerMovementIsaac : MonoBehaviour
             if (!showLibro)
             {
                 StartCoroutine(VolumeManager.instance.LibroFiltroOut());
+                canMove = true;
 
                 canPlayLibrito = false;
                 canChangeCamera = true;

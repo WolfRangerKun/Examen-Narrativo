@@ -10,7 +10,7 @@ public class Listening : MonoBehaviour
     public float speed;
 
     public GameObject[] playerRefs;
-    public GameObject cameraLisening;
+    public GameObject cameraLisening, audioEfect;
 
     public LayerMask targetMask;
     public LayerMask obstructionMask;
@@ -89,6 +89,7 @@ public class Listening : MonoBehaviour
         //yield return new WaitWhile(() => VolumeManager.instance.LiseningFiltroIn().MoveNext());
         print("Corrutina");
         PlayerMovementIsaac.instance.canMove = false;
+        audioEfect.SetActive(false);
         StartCoroutine(StartFade(fondo, 1, .1f));
         cameraLisening.transform.position = target.transform.position;
         cameraLisening.SetActive(true);
@@ -98,8 +99,10 @@ public class Listening : MonoBehaviour
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
         yield return new WaitUntil(()=> DialogueManager.intance.index >= DialogueManager.intance.dialogos.Count -1);
         yield return new WaitUntil(() => DialogueManager.intance.index ==0);
-        StartCoroutine(StartFade(fondo, 1, 1f));
+        StartCoroutine(StartFade(fondo, 1, .3f));
         cameraLisening.SetActive(false);
+        audioEfect.SetActive(true);
+
         yield break;
 
     }

@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8823961960882209835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 14.3}
+  m_LocalPosition: {x: 0, y: -0, z: 14.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8823961961109648108}
@@ -65,7 +65,7 @@ Transform:
   - {fileID: 8823961960882209836}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 12, y: 0, z: 0}
 --- !u!20 &8823961961109648107
 Camera:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8823961961109648105}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!114 &8823961961109648109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,8 +136,8 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
+    m_Style: 4
+    m_Time: 0.8
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -168,6 +168,7 @@ MonoBehaviour:
     m_Bits: 512
   distanceRay: 50
   target: {fileID: 8823961960882209836}
+  targetVector: {x: 0, y: 0, z: 0}
 --- !u!114 &8823961961109648111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +191,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0

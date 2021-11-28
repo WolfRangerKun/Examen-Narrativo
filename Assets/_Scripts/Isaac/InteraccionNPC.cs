@@ -28,16 +28,38 @@ public class InteraccionNPC : MonoBehaviour
 
     public Question thisQuestion;
     public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres, dialogoDesbloqueoConPalabra, dialogoDesbloqueoConObservacion;
-    public GameObject cv;
+    public GameObject cv, textoPopUp;
     bool yaDesbloqueo, isDialogoPalabra;
     int l;
+    bool canTalk;
+    private void Update()
+    {
+        if (canTalk && Input.GetMouseButtonDown(0))
+        {
+            PlayDialogue();
+            textoPopUp.SetActive(false);
+            canTalk = false;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            PlayDialogue();
+            canTalk = true;
+            textoPopUp.SetActive(true);
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            canTalk = false;
+            textoPopUp.SetActive(false);
+
+        }
+    }
+
     void PlayDialogue()
     {
         ReemplazarPalabra();
