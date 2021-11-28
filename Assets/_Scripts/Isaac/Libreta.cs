@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class SignificadosPalabras
@@ -48,11 +49,13 @@ public class Libreta : MonoBehaviour
             GameObject modismo = Instantiate(panelString, panelModismos);
             modismo.GetComponentInChildren<TextMeshProUGUI>().text = palabra;
             modLibreta.Add(modismo);
+            panelModismos.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32; 
 
             sigPalabras.Add(sig);
             GameObject significado = Instantiate(panelString, panelSig);
             significado.GetComponentInChildren<TextMeshProUGUI>().text = sig.significados[0];
             sigLibreta.Add(significado);
+            panelSig.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
 
         }
         else
@@ -92,33 +95,46 @@ public class Libreta : MonoBehaviour
                     GameObject gesto = Instantiate(panelString, panelGest);
                     gesto.GetComponentInChildren<TextMeshProUGUI>().text = gesture;
                     gestLibreta.Add(gesto);
+                    panelGest.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
+
 
                     cosasObservadas.Add(gesturAction);
                     GameObject observacion = Instantiate(panelString, panelObs);
                     observacion.GetComponentInChildren<TextMeshProUGUI>().text = gesturAction.context[0];
                     obsLibreta.Add(observacion);
+                    panelObs.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
+
+
                     break;
                 case GestObserv.OBSERVADO.Situacion:
                     notasObservaciones.Add(gesture);
                     GameObject situaicon = Instantiate(panelString, panelQueFueSituacion);
                     situaicon.GetComponentInChildren<TextMeshProUGUI>().text = gesture;
                     situLibreta.Add(situaicon);
+                    panelQueFueSituacion.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
 
                     cosasObservadas.Add(gesturAction);
                     GameObject obser = Instantiate(panelString, panelSituacion);
                     obser.GetComponentInChildren<TextMeshProUGUI>().text = gesturAction.context[0];
                     queFueSituLibreta.Add(obser);
+                    panelSituacion.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
+
+
                     break;
                 case GestObserv.OBSERVADO.Objeto:
                     notasObservaciones.Add(gesture);
                     GameObject obj = Instantiate(panelString, panelQueFueObj);
                     obj.GetComponentInChildren<TextMeshProUGUI>().text = gesture;
                     objeLibreta.Add(obj);
+                    panelQueFueObj.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
+
 
                     cosasObservadas.Add(gesturAction);
                     GameObject obsers = Instantiate(panelString, panelObj);
                     obsers.GetComponentInChildren<TextMeshProUGUI>().text = gesturAction.context[0];
                     queFueObjLibreta.Add(obsers);
+                    panelObj.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
+
                     break;
               
             }
