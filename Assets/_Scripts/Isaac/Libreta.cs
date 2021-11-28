@@ -33,13 +33,21 @@ public class Libreta : MonoBehaviour
     public Transform panelModismos, panelSig,panelGest ,panelObs,panelSituacion,panelQueFueSituacion,panelObj,panelQueFueObj;
     public GameObject panelString;
     public List<GameObject> modLibreta, sigLibreta,gestLibreta ,obsLibreta,situLibreta, queFueSituLibreta, objeLibreta,queFueObjLibreta;
+    public GameObject pageCero;
 
     private void Awake()
     {
         instance = this;
     }
-
-    
+    bool off;
+    private void Update()
+    {
+        if (off && Input.GetKeyDown(KeyCode.P))
+        {
+            pageCero.SetActive(false);
+            off = false;
+        }
+    }
 
     public void CompararPalabras(string palabra, SignificadosPalabras sig)
     {
@@ -56,6 +64,10 @@ public class Libreta : MonoBehaviour
             significado.GetComponentInChildren<TextMeshProUGUI>().text = sig.significados[0];
             sigLibreta.Add(significado);
             panelSig.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
+
+
+            pageCero.SetActive(true);
+            off = true;
 
         }
         else
@@ -104,6 +116,8 @@ public class Libreta : MonoBehaviour
                     obsLibreta.Add(observacion);
                     panelObs.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
 
+                    pageCero.SetActive(true);
+                    off = true;
 
                     break;
                 case GestObserv.OBSERVADO.Situacion:
@@ -118,6 +132,8 @@ public class Libreta : MonoBehaviour
                     obser.GetComponentInChildren<TextMeshProUGUI>().text = gesturAction.context[0];
                     queFueSituLibreta.Add(obser);
                     panelSituacion.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
+                    pageCero.SetActive(true);
+                    off = true;
 
 
                     break;
@@ -134,6 +150,8 @@ public class Libreta : MonoBehaviour
                     obsers.GetComponentInChildren<TextMeshProUGUI>().text = gesturAction.context[0];
                     queFueObjLibreta.Add(obsers);
                     panelObj.gameObject.GetComponent<VerticalLayoutGroup>().padding.bottom -= 32;
+                    pageCero.SetActive(true);
+                    off = true;
 
                     break;
               

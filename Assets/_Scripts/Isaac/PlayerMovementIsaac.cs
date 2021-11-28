@@ -85,6 +85,11 @@ public class PlayerMovementIsaac : MonoBehaviour
                 rb.velocity = new Vector3(moveInput.x * speed * -1 /**40* Time.deltaTime*/, rb.velocity.y, moveInput.y * speed * -1/**40 * Time.deltaTime*/);
             }
         }
+        else
+        {
+            moveInput.x = 0;
+            moveInput.y = 0;
+        }
     }
 
     public void ChangeMovementAxis()
@@ -143,7 +148,7 @@ public class PlayerMovementIsaac : MonoBehaviour
     }
     IEnumerator ActiveLibrito()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         canLibrito = true;
     }
     bool playAudio = true;
@@ -268,6 +273,8 @@ public class PlayerMovementIsaac : MonoBehaviour
             StartCoroutine(VolumeManager.instance.ObsFiltroIn());
             cameraPrimera?.Invoke();
             canMove = false;
+            canLibrito = false;
+            canChangeAudio = false;
         }
         else
         {
@@ -276,6 +283,8 @@ public class PlayerMovementIsaac : MonoBehaviour
                 StartCoroutine(VolumeManager.instance.ObsFiltroOut());
                 canMove = true;
                 cameraTercera?.Invoke();
+                canLibrito = true;
+                canChangeAudio = true;
             }
         }
     }
@@ -287,6 +296,8 @@ public class PlayerMovementIsaac : MonoBehaviour
             StartCoroutine(VolumeManager.instance.LiseningFiltroIn());
             dd.SetActive(true);
             canMove = false;
+            canLibrito = false;
+            canChangeCamera = false;
         }
         else
         {
@@ -295,7 +306,8 @@ public class PlayerMovementIsaac : MonoBehaviour
                 StartCoroutine(VolumeManager.instance.LiseningFiltroOut());
 
                 canMove = true;
-
+                canLibrito = true;
+                canChangeCamera = true;
                 dd.SetActive(false);
 
             }
@@ -313,6 +325,8 @@ public class PlayerMovementIsaac : MonoBehaviour
 
             canPlayLibrito = true;
             libreta.transform.DOMove(posDown.transform.position, 1f);
+            canChangeCamera = false;
+            canChangeAudio = false;
         }
         else
         {
@@ -321,7 +335,8 @@ public class PlayerMovementIsaac : MonoBehaviour
                 StartCoroutine(VolumeManager.instance.LibroFiltroOut());
 
                 canPlayLibrito = false;
-
+                canChangeCamera = true;
+                canChangeAudio = true;
                 libreta.transform.DOMove(posUp.transform.position, 1f);
                 StartCoroutine(CerrarLibro());
             }
