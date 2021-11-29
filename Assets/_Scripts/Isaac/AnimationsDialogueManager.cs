@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AnimationsDialogueManager : MonoBehaviour
 {
-    public List<Dialogue> dialogoAnimationBienvenida;
+    public List<Dialogue> dialogoAnimationBienvenida, dialogoIntroTutorial;
     public List<AudioSource> audios;
-    public GameObject cv;
+    public GameObject cv, vsfHambre;
     private void Start()
     {
         StartCoroutine(DialogoBienvenidaSiagotan());
@@ -18,36 +18,22 @@ public class AnimationsDialogueManager : MonoBehaviour
         PlayerMovementIsaac.instance.canMove = false;
         DialogueManager.intance.dialogos = dialogoAnimationBienvenida;
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
-        //DialogueManager.intance.TalkinAnimation();
-
-
-        //yield return new WaitUntil(() => DialogueManager.intance.index == 1);
-
-        //DialogueManager.intance.TalkinAnimation();
-
-        //yield return new WaitUntil(() => DialogueManager.intance.index == 2);
-        //DialogueManager.intance.TalkinAnimation();
-
+        
 
         yield return new WaitUntil(() => DialogueManager.intance.index > 2);
         PlayerMovementIsaac.instance.sprite.GetComponent<Animator>().SetBool("IsTalking", false);
 
         DialogueManager.intance.canContinue = false;
         DialogueManager.intance.HideDialogo();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(.8f);
         audios[0].Play();
-        yield return new WaitForSeconds(4);
+        vsfHambre.SetActive(true);
+        yield return new WaitForSeconds(2);
+        vsfHambre.SetActive(false);
+        yield return new WaitForSeconds(2);
+
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[3]);
         DialogueManager.intance.canContinue = true;
-        //DialogueManager.intance.TalkinAnimation();
-
-
-        //yield return new WaitUntil(() => DialogueManager.intance.index == 4);
-        //DialogueManager.intance.TalkinAnimation();
-
-        //yield return new WaitUntil(() => DialogueManager.intance.index == 5);
-        //DialogueManager.intance.TalkinAnimation();
-
 
         yield return new WaitUntil(() => DialogueManager.intance.index > 0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
@@ -56,6 +42,9 @@ public class AnimationsDialogueManager : MonoBehaviour
         PlayerMovementIsaac.instance.canMove = true;
         yield break;
 
-
     }
+
+   
+   
+
 }

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class TriggerInvoke : MonoBehaviour
 {
     public UnityEvent triggerEnter, triggerExit;
-
+    public bool desaparece;
     bool canDo = true;
     private void OnTriggerEnter(Collider other)
     {
@@ -15,6 +15,12 @@ public class TriggerInvoke : MonoBehaviour
             triggerEnter?.Invoke();
             StartCoroutine(Recovery());
             canDo = false;
+        }
+
+        if (other.CompareTag("Player") && desaparece)
+        {
+            triggerEnter?.Invoke();
+            gameObject.SetActive(false);
         }
     }
 
