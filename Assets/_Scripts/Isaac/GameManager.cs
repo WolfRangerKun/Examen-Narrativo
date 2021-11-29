@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool isMenu;
+    public bool levelOneComplete;
+    public GameObject triggerFinalNivel;
     private void Awake()
     {
         instance = this;
@@ -24,7 +26,11 @@ public class GameManager : MonoBehaviour
             Cursor.visible = true;
 
         }
-
+        if (levelOneComplete)
+        {
+            triggerFinalNivel.SetActive(true);
+            levelOneComplete = false;
+        }
     }
 
 

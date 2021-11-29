@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class TriggerInvoke : MonoBehaviour
 {
     public UnityEvent triggerEnter, triggerExit;
-    public bool desaparece;
+    public bool desaparece, lol;
     bool canDo = true;
     private void OnTriggerEnter(Collider other)
     {
@@ -21,6 +21,11 @@ public class TriggerInvoke : MonoBehaviour
         {
             triggerEnter?.Invoke();
             gameObject.SetActive(false);
+        }
+        if (other.CompareTag("Player") && lol)
+        {
+            triggerEnter?.Invoke();
+            //gameObject.SetActive(false);
         }
     }
 

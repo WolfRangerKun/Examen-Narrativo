@@ -768,7 +768,7 @@ public class InteraccionNPC : MonoBehaviour
                     }
                     for (int a = 0; a < Libreta.instance.cosasObservadas.Count; a++)
                     {
-                        if (Libreta.instance.notasObservaciones[a] == QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text && !pasa)
+                        if (QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text.Contains(Libreta.instance.notasObservaciones[a]) && !pasa)
                         {
                             DialogueManager.intance.dialogos = dialogoDesbloqueoConObservacion;
                             yaDesbloqueo = true;
@@ -821,6 +821,11 @@ public class InteraccionNPC : MonoBehaviour
                 if (yaDesbloqueo)
                 {
                     DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+                    if (DialogueManager.intance.dialogos[0].nombre == "Dueño de Almacen")
+                    {
+                        GameManager.instance.levelOneComplete = true;
+                        print("LevelOneCOpmplete");
+                    }
                     l++;
                 }
             }

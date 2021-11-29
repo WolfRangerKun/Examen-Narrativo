@@ -7,11 +7,13 @@ public class ObservGests : MonoBehaviour
     public GestObserv gestoObservable;
     public string descripcion;
     public List<Dialogue> siEsSituacionDialogue;
-    public GameObject cv;
+    public GameObject cv, vfxMira;
     public IEnumerator Situacion()
     {
-        if (gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Situacion /*|| gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Gesto*/)
+        if (gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Situacion || gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Objeto)
         {
+                vfxMira = GameObject.Find("Mira");
+                vfxMira.SetActive(false);
             cv.SetActive(true);
             PlayerMovementIsaac.instance.canMove = false;
             //thisDialogue.FindLast(x => x.dialogo == thisQuestion.question);
@@ -20,6 +22,8 @@ public class ObservGests : MonoBehaviour
             yield return new WaitUntil(() => DialogueManager.intance.index >= DialogueManager.intance.dialogos.Count - 1);
             yield return new WaitUntil(() => DialogueManager.intance.index == 0);
             cv.SetActive(false);
+            vfxMira.SetActive(true);
+
             //PlayerMovementIsaac.instance.canMove = true;
             yield break;
 

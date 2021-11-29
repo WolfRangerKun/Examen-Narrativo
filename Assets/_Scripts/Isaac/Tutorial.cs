@@ -77,6 +77,8 @@ public class Tutorial : MonoBehaviour
 
     }
 
+
+
     IEnumerator CanCo()
     {
         yield return new WaitForSeconds(1);

@@ -4,12 +4,49 @@ using UnityEngine;
 
 public class AnimationsDialogueManager : MonoBehaviour
 {
-    public List<Dialogue> dialogoAnimationBienvenida, dialogoIntroTutorial;
+    public static AnimationsDialogueManager instance;
+    public List<Dialogue> dialogoAnimationBienvenida, dialogoClearGarmando, dialogoClearGarmandoADormir;
     public List<AudioSource> audios;
     public GameObject cv, vsfHambre;
+    public bool sceneOne;
+    bool jaja1 = true;
+    bool jaja2 = true;
+    public static int lol;
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
-        StartCoroutine(DialogoBienvenidaSiagotan());
+        if (sceneOne)
+        {
+            StartCoroutine(DialogoBienvenidaSiagotan());
+
+        }
+        else
+        {
+            //ponerDollydeNivel e iniciar otra corrutina 
+        }
+    }
+
+    public void ClearEtapaUno()
+    {
+        if (lol == 0)
+        {
+            print("kaka");
+            StartCoroutine(DialogoClearGarmandoCity());
+            lol = 1;
+        }
+    }
+
+    public void ClearEtapaUnoNOCHE()
+    {
+        if (jaja1)
+        {
+            StartCoroutine(DialogoClearGarmandoCityDORMIR());
+            jaja1 = true;
+        }
+
     }
 
     public IEnumerator DialogoBienvenidaSiagotan()
@@ -44,7 +81,37 @@ public class AnimationsDialogueManager : MonoBehaviour
 
     }
 
-   
-   
+    public IEnumerator DialogoClearGarmandoCity()
+    {
+        cv.SetActive(true);
+        PlayerMovementIsaac.instance.canMove = false;
+        DialogueManager.intance.dialogos = dialogoClearGarmando;
+        DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+
+        yield return new WaitUntil(() => DialogueManager.intance.index > 0);
+        yield return new WaitUntil(() => DialogueManager.intance.index == 0);
+
+        cv.SetActive(false);
+        PlayerMovementIsaac.instance.canMove = true;
+        yield break;
+
+    }
+
+    public IEnumerator DialogoClearGarmandoCityDORMIR()
+    {
+        cv.SetActive(true);
+        PlayerMovementIsaac.instance.canMove = false;
+        DialogueManager.intance.dialogos = dialogoClearGarmandoADormir;
+        DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        yield return new WaitUntil(() => DialogueManager.intance.index > 2);
+
+        yield return new WaitUntil(() => DialogueManager.intance.index > 0);
+        yield return new WaitUntil(() => DialogueManager.intance.index == 0);
+        print("TerminasteELNivel");
+        cv.SetActive(false);
+        yield break;
+
+    }
+
 
 }
