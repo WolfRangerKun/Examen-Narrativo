@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public bool isMenu;
     public bool levelOneComplete;
     public GameObject triggerFinalNivel;
+    public AudioSource bgm;
     private void Awake()
     {
         instance = this;

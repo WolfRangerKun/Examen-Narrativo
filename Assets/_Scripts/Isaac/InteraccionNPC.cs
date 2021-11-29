@@ -62,6 +62,7 @@ public class InteraccionNPC : MonoBehaviour
 
     void PlayDialogue()
     {
+
         ReemplazarPalabra();
         cv.SetActive(true);
         PlayerMovementIsaac.instance.canMove = false;
@@ -737,6 +738,9 @@ public class InteraccionNPC : MonoBehaviour
     bool pasa;
     IEnumerator ShowDialogue()
     {
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
+
         int x = thisDialogue.Count;
         if (!yaDesbloqueo)
         {
@@ -833,6 +837,7 @@ public class InteraccionNPC : MonoBehaviour
         yield return new WaitUntil(() => DialogueManager.intance.index > 0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
         //QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
 
         cv.SetActive(false);
         PlayerMovementIsaac.instance.canMove = true;

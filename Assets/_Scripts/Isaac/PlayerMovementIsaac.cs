@@ -266,29 +266,36 @@ public class PlayerMovementIsaac : MonoBehaviour
     }
     void CamaraChange()
     {
+
         changeCamera = !changeCamera;
 
         if (changeCamera)
         {
-            StartCoroutine(VolumeManager.instance.ObsFiltroIn());
-            cameraPrimera?.Invoke();
-            miraObs.SetActive(true);
+            GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
 
+            StartCoroutine(VolumeManager.instance.ObsFiltroIn());
             canMove = false;
             canLibrito = false;
             canChangeAudio = false;
+            cameraPrimera?.Invoke();
+            miraObs.SetActive(true);
+
+            
         }
         else
         {
             if (!changeCamera)
             {
+                GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
                 StartCoroutine(VolumeManager.instance.ObsFiltroOut());
                 canMove = true;
+                canLibrito = true;
+                canChangeAudio = true;
                 miraObs.SetActive(false);
 
                 cameraTercera?.Invoke();
-                canLibrito = true;
-                canChangeAudio = true;
+                
             }
         }
     }
@@ -297,6 +304,8 @@ public class PlayerMovementIsaac : MonoBehaviour
         isListeing = !isListeing;
         if (isListeing)
         {
+            GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
             StartCoroutine(VolumeManager.instance.LiseningFiltroIn());
             dd.SetActive(true);
             canMove = false;
@@ -307,6 +316,8 @@ public class PlayerMovementIsaac : MonoBehaviour
         {
             if (!isListeing)
             {
+                GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
                 StartCoroutine(VolumeManager.instance.LiseningFiltroOut());
 
                 canMove = true;
@@ -325,6 +336,8 @@ public class PlayerMovementIsaac : MonoBehaviour
 
         if (showLibro)
         {
+            GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
             StartCoroutine(VolumeManager.instance.LibroFiltroIn());
             canMove = false;
 
@@ -337,6 +350,8 @@ public class PlayerMovementIsaac : MonoBehaviour
         {
             if (!showLibro)
             {
+                GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
                 StartCoroutine(VolumeManager.instance.LibroFiltroOut());
                 canMove = true;
 

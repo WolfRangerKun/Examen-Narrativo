@@ -128,10 +128,13 @@ public class NpcGenericInteractionDialogue : MonoBehaviour
 
     IEnumerator ShowDialogue()
     {
-        
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
+
         yield return new WaitUntil(() => DialogueManager.intance.index > 0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
         //QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
 
         cv.SetActive(false);
         PlayerMovementIsaac.instance.canMove = true;

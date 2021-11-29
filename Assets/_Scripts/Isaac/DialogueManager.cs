@@ -44,7 +44,6 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowDialogo(Dialogue dialogue)
     {
-        StopAllCoroutines();
         dialogoText.text = "";
         dialogoPanel.DOMove(puntoGuia.position, .5f);
         nombre.text = dialogue.nombre;
@@ -152,6 +151,15 @@ public class DialogueManager : MonoBehaviour
             case "Benjamín":
                 personajesParaAnimTalk[2].GetComponent<Animator>().SetBool("IsTalking", true);
                 break;
+            case "Hipster":
+                personajesParaAnimTalk[3].GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
+            case "Nicolás":
+                personajesParaAnimTalk[4].GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
+            case "Alberto":
+                personajesParaAnimTalk[5].GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
         }
 
 
@@ -172,6 +180,15 @@ public class DialogueManager : MonoBehaviour
                 break;
             case "Benjamín":
                 personajesParaAnimTalk[2].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+            case "Hipster":
+                personajesParaAnimTalk[3].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+            case "Nicolás":
+                personajesParaAnimTalk[4].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+            case "Alberto":
+                personajesParaAnimTalk[5].GetComponent<Animator>().SetBool("IsTalking", false);
                 break;
         }
     }

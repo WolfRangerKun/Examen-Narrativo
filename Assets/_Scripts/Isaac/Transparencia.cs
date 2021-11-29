@@ -24,7 +24,6 @@ public class Transparencia : MonoBehaviour
     }
     private void Start()
     {
-        modo = MODO.HIDE;
         //spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -45,7 +44,7 @@ public class Transparencia : MonoBehaviour
         }
         if (modo.Equals(MODO.SHOW))
         {
-            if (transparencia >= .5f)
+            if (transparencia >= 1f)
                 modo = MODO.NOTHING;
 
             transparencia += Time.deltaTime / 2;

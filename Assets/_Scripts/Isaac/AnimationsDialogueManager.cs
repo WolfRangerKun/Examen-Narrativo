@@ -1,27 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AnimationsDialogueManager : MonoBehaviour
 {
     public static AnimationsDialogueManager instance;
     public List<Dialogue> dialogoAnimationBienvenida, dialogoClearGarmando, dialogoClearGarmandoADormir;
     public List<AudioSource> audios;
-    public GameObject cv, vsfHambre;
+    public GameObject cv, vsfHambre, winTrigger;
+    public DialogueManager dM;
     public bool sceneOne;
-    bool jaja1 = true;
-    bool jaja2 = true;
-    public static int lol;
     private void Awake()
     {
         instance = this;
+        dM = FindObjectOfType<DialogueManager>();
     }
     private void Start()
     {
         if (sceneOne)
         {
             StartCoroutine(DialogoBienvenidaSiagotan());
-
         }
         else
         {
@@ -29,28 +28,14 @@ public class AnimationsDialogueManager : MonoBehaviour
         }
     }
 
-    public void ClearEtapaUno()
-    {
-        if (lol == 0)
-        {
-            print("kaka");
-            StartCoroutine(DialogoClearGarmandoCity());
-            lol = 1;
-        }
-    }
-
-    public void ClearEtapaUnoNOCHE()
-    {
-        if (jaja1)
-        {
-            StartCoroutine(DialogoClearGarmandoCityDORMIR());
-            jaja1 = true;
-        }
-
-    }
-
+   
+   
     public IEnumerator DialogoBienvenidaSiagotan()
     {
+        Transparencia.intance.modo = Transparencia.MODO.HIDE;
+        yield return new WaitForSeconds(.6f);
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
         cv.SetActive(true);
         PlayerMovementIsaac.instance.canMove = false;
         DialogueManager.intance.dialogos = dialogoAnimationBienvenida;
@@ -74,6 +59,7 @@ public class AnimationsDialogueManager : MonoBehaviour
 
         yield return new WaitUntil(() => DialogueManager.intance.index > 0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
 
         cv.SetActive(false);
         PlayerMovementIsaac.instance.canMove = true;
@@ -83,32 +69,44 @@ public class AnimationsDialogueManager : MonoBehaviour
 
     public IEnumerator DialogoClearGarmandoCity()
     {
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
         cv.SetActive(true);
         PlayerMovementIsaac.instance.canMove = false;
-        DialogueManager.intance.dialogos = dialogoClearGarmando;
-        DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        dM.dialogos = dialogoClearGarmando;
+        dM.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        yield return new WaitUntil(() => dM.index > 0);
 
-        yield return new WaitUntil(() => DialogueManager.intance.index > 0);
-        yield return new WaitUntil(() => DialogueManager.intance.index == 0);
+        yield return new WaitUntil(() => dM.index == 0);
 
         cv.SetActive(false);
         PlayerMovementIsaac.instance.canMove = true;
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
+        winTrigger.SetActive(false);
+
         yield break;
 
     }
 
     public IEnumerator DialogoClearGarmandoCityDORMIR()
     {
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
         cv.SetActive(true);
         PlayerMovementIsaac.instance.canMove = false;
         DialogueManager.intance.dialogos = dialogoClearGarmandoADormir;
         DialogueManager.intance.ShowDialogo(DialogueManager.intance.dialogos[0]);
-        yield return new WaitUntil(() => DialogueManager.intance.index > 2);
 
         yield return new WaitUntil(() => DialogueManager.intance.index > 0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
         print("TerminasteELNivel");
+        Transparencia.intance.modo = Transparencia.MODO.SHOW;
+
+        GameManager.instance.StartFade(GameManager.instance.bgm, 3, .01f);
+        yield return new WaitForSeconds(2.1f);
         cv.SetActive(false);
+        SceneManager.LoadScene(2);
         yield break;
 
     }
