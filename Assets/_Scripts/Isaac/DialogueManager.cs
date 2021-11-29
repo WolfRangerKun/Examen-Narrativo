@@ -14,6 +14,7 @@ public class Dialogue
     public Texture retrato;
 }
 
+
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager intance;
@@ -22,7 +23,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI nombre;
     public RawImage portrait;
     public int index;
-
+    public List<GameObject> personajesParaAnimTalk;
 
     public RectTransform dialogoPanel, puntoGuia;
     private Vector2 originalPos;
@@ -47,6 +48,8 @@ public class DialogueManager : MonoBehaviour
         dialogoPanel.DOMove(puntoGuia.position, .5f);
         nombre.text = dialogue.nombre;
         StartCoroutine(LetrasDeAPoco());
+        TalkinAnimation();
+
         //dialogoText.text = dialogue.dialogo;
         //portrait.texture = dialogue.retrato;
         //portrait.SetNativeSize();
@@ -69,6 +72,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && dialogueOn&& canContinue)
         {
+
             NextDialgogue();
         }
 
@@ -79,25 +83,31 @@ public class DialogueManager : MonoBehaviour
         if (dialogoText.text != dialogos[index].dialogo)
         {
             StopAllCoroutines();
+            StopAnimationTalking();
+
             dialogoText.text = dialogos[index].dialogo;
         }
         else
         {
             StopAllCoroutines();
+            StopAnimationTalking();
             index++;
             if (index >= dialogos.Count)
             {
 
                 //StartCoroutine(HideDialogoCorrutina());
+
                 HideDialogo();
 
                 index = 0;
+
                 //termina dialogo
             }
             else
             {
-
                 ShowDialogo(dialogos[index]);
+                TalkinAnimation();
+
             }
         }
 
@@ -124,7 +134,34 @@ public class DialogueManager : MonoBehaviour
         Transparencia.intance.modo = Transparencia.MODO.HIDE;
     }
 
+    public void TalkinAnimation()
+    {
 
+        switch (dialogos[index].nombre)
+        {
+            case "Garmando":
+                PlayerMovementIsaac.instance.sprite.GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
+            case "Dueño de Almacen":
+                personajesParaAnimTalk[0].GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
+        }
+
+
+    }
+
+    public void StopAnimationTalking()
+    {
+        switch (dialogos[index].nombre)
+        {
+            case "Garmando":
+                PlayerMovementIsaac.instance.sprite.GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+            case "Dueño de Almacen":
+                personajesParaAnimTalk[0].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+        }
+    }
 
     
 }
