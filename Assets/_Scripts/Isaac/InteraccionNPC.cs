@@ -751,7 +751,7 @@ public class InteraccionNPC : MonoBehaviour
         #endregion
     }
 
-    
+    int t;
     bool pasa;
     IEnumerator ShowDialogue()
     {
@@ -795,6 +795,11 @@ public class InteraccionNPC : MonoBehaviour
                         {
                             DialogueManager.intance.dialogos = dialogoDesbloqueoConObservacion;
                             yaDesbloqueo = true;
+                            if (QuestionManager.intance.replies[i].GetComponentInChildren<TextMeshProUGUI>().text == "Baile Flaite")
+                            {
+                                t++;
+                            }
+
                             pasa = true;
                             print("Lologre");
                         }
@@ -866,7 +871,10 @@ public class InteraccionNPC : MonoBehaviour
         {
             print("dotiwng");
 
-            PlayerMovementIsaac.instance.sprite.GetComponent<Animator>().SetBool("Baile", true);
+            if (t ==1)
+            {
+                PlayerMovementIsaac.instance.sprite.GetComponent<Animator>().SetBool("Baile", true);
+            }
             flaite.transform.DOMove(flaite.transform.position + new Vector3(4, 0, 0), 3);
             flaite.GetComponent<Animator>().SetBool("IsWalking", true);
             yield return new WaitForSeconds(3);
