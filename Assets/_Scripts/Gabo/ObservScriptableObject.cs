@@ -7,23 +7,20 @@ public class ObservScriptableObject : MonoBehaviour
     public ObjectObserv classObserv;
     public bool change = true;
 
-    //private void Update()
-    //{
-    //    if (PlayerMovementIsaac.instance.changeCamera && change)
-    //    {
-    //        ChangeMaterialInObserv();
-    //    }
-    //    else
-    //    {
-    //        ChangeMaterialNormal();
-    //    }
-    //}
-    //public void ChangeMaterialInObserv()
-    //{
-    //    gameObject.GetComponent<MeshRenderer>().material = classObserv.changeInObserv;
-    //}
-    //public void ChangeMaterialNormal()
-    //{
-    //    gameObject.GetComponent<MeshRenderer>().material = classObserv.original;
-    //}
+    public void Start()
+    {
+        change = true;
+    }
+
+    private void Update()
+    {
+        if (PlayerMovementIsaac.instance.changeCamera & change)
+        {
+            gameObject.GetComponent<MeshRenderer>().enabled = true;
+        }
+        else
+        {
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+        }
+    }
 }

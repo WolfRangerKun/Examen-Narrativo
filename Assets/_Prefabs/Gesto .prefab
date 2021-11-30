@@ -105,9 +105,9 @@ GameObject:
   - component: {fileID: 5347485805854066011}
   - component: {fileID: 5347485805854066010}
   - component: {fileID: 5347485805854066009}
-  - component: {fileID: 5347485805854066008}
   - component: {fileID: 5347485805854066015}
   - component: {fileID: 5347485805854066004}
+  - component: {fileID: 5958766499795300218}
   m_Layer: 9
   m_Name: 'Gesto '
   m_TagString: Untagged
@@ -124,7 +124,7 @@ Transform:
   m_GameObject: {fileID: 5347485805854066014}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -162, y: 1.8557199, z: 16.1}
-  m_LocalScale: {x: 2.7892058, y: 3.8514395, z: 1.3754159}
+  m_LocalScale: {x: 6.936412, y: 6.936412, z: 6.936412}
   m_Children:
   - {fileID: 5347485807120442418}
   m_Father: {fileID: 0}
@@ -137,7 +137,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5347485805854066014}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5347485805854066009
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -145,7 +145,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5347485805854066014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -157,7 +157,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7dd0c89435a38f46b6806727d456d12, type: 2}
+  - {fileID: 2100000, guid: 89b63a152ee3d7b43b02aa9e7b80d1e8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -179,19 +179,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5347485805854066008
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5347485805854066014}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5347485805854066015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +204,7 @@ MonoBehaviour:
     dialogo: '*baile flaite x2*'
     retrato: {fileID: 0}
   cv: {fileID: 5347485807120442417}
+  vfxMira: {fileID: 0}
 --- !u!114 &5347485805854066004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +221,19 @@ MonoBehaviour:
     original: {fileID: 2100000, guid: eca3988a008788046aa5a7ff7875cc69, type: 2}
     changeInObserv: {fileID: 2100000, guid: b7dd0c89435a38f46b6806727d456d12, type: 2}
   change: 1
+--- !u!135 &5958766499795300218
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347485805854066014}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5347485807120442417
 GameObject:
   m_ObjectHideFlags: 0

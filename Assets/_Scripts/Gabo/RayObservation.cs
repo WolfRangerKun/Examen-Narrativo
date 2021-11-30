@@ -25,7 +25,7 @@ public class RayObservation : MonoBehaviour
             Debug.DrawRay(/*cameraSwitch.position*/ transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.blue, distanceRay);
             if (Physics.Raycast(/*cameraSwitch.position*/transform.position, transform.TransformDirection(Vector3.forward) * 1000, out hit, distanceRay, layerRay) && canSee)
             {
-                //hit.transform.gameObject.GetComponent<ObservScriptableObject>().change = false;
+                hit.transform.gameObject.GetComponent<ObservScriptableObject>().change = false;
                 Libreta.instance.RegisterGeturess(hit.transform.gameObject.GetComponent<ObservGests>().descripcion, hit.transform.gameObject.GetComponent<ObservGests>().gestoObservable);
                 StartCoroutine(hit.transform.gameObject.GetComponent<ObservGests>().Situacion());
                 StartCoroutine("CanSee");

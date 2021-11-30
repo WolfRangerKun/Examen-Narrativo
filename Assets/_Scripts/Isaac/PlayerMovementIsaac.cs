@@ -295,6 +295,8 @@ public class PlayerMovementIsaac : MonoBehaviour
         {
             GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
 
+            Cursor.lockState = CursorLockMode.Confined;
+
             StartCoroutine(VolumeManager.instance.LiseningFiltroIn());
             dd.SetActive(true);
             canMove = false;
@@ -306,6 +308,8 @@ public class PlayerMovementIsaac : MonoBehaviour
             if (!isListeing)
             {
                 GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
+                Cursor.lockState = CursorLockMode.Locked;
 
                 StartCoroutine(VolumeManager.instance.LiseningFiltroOut());
 
