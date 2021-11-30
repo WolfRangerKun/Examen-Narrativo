@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class GameManager : MonoBehaviour
     public bool isMenu;
     public bool levelOneComplete;
     public bool lastarriasOne, lastarriaTwo;
+    public bool gameRunning;
+    public bool canPause = true;
+    public GameObject pasuePanel;
 
     public GameObject triggerFinalNivel, triggerLastUno, termina;
     public AudioSource bgm;
@@ -44,6 +48,10 @@ public class GameManager : MonoBehaviour
             termina.SetActive(true);
             lastarriaTwo = false;
         }
+        if (Input.GetKeyDown(KeyCode.Escape) && canPause)
+        {
+            ChangedGameRunningState();
+        }
     }
 
     IEnumerator CorridaFlaite()
@@ -62,6 +70,38 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         yield break;
+    }
+
+    public void ChangedGameRunningState()
+    {
+        gameRunning = !gameRunning;
+
+        if (gameRunning)
+        {
+            pasuePanel.SetActive(false);
+            Time.timeScale = 1f;
+
+        }
+        else
+        {
+            pasuePanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
+
+    public bool IsGameRunning()
+    {
+        return gameRunning;
+    }
+
+    public void CargarNivel(int numeroDeEscena)
+    {
+        SceneManager.LoadScene(numeroDeEscena);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
 }
