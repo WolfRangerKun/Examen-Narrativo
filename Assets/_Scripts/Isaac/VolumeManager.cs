@@ -62,6 +62,7 @@ public class VolumeManager : MonoBehaviour
 
     public IEnumerator LibroFiltroIn()
     {
+        
         zoomIn3.Play();
 
         while (volumeLibrito.weight < 1 && true)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     public bool gameRunning;
     public bool canPause = true;
     public GameObject pasuePanel;
+    public Transform fin, inicio;
 
     public GameObject triggerFinalNivel, triggerLastUno, termina;
     public AudioSource bgm;
@@ -22,17 +24,17 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Time.timeScale = 1;
+
+        if (isMenu)
+        {
+            Cursor.visible = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isMenu)
-        {
-            Cursor.visible = true;
-
-        }
         if (levelOneComplete)
         {
             triggerFinalNivel.SetActive(true);
@@ -78,13 +80,27 @@ public class GameManager : MonoBehaviour
 
         if (gameRunning)
         {
-            pasuePanel.SetActive(false);
+            PlayerMovementIsaac.instance.MouseState();
+            StartCoroutine(VolumeManager.instance.LibroFiltroOut());
+
+            DOTween.defaultTimeScaleIndependent = true;
+            pasuePanel.transform.DOMove(inicio.position, 1 ) ;
+
+            PlayerMovementIsaac.instance.canMove = true;
             Time.timeScale = 1f;
 
         }
         else
         {
-            pasuePanel.SetActive(true);
+            PlayerMovementIsaac.instance.MouseState();
+
+            StartCoroutine(VolumeManager.instance.LibroFiltroIn());
+
+            DOTween.defaultTimeScaleIndependent = true;
+
+            pasuePanel.transform.DOMove(fin.position, 1);
+            PlayerMovementIsaac.instance.canMove = false;
+
             Time.timeScale = 0f;
         }
     }

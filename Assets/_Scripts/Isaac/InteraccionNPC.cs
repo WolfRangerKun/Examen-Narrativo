@@ -764,8 +764,10 @@ public class InteraccionNPC : MonoBehaviour
             yield return new WaitUntil(() => DialogueManager.intance.index == x - 1);
             DialogueManager.intance.canContinue = false;
             QuestionManager.intance.ShowQuestion(thisQuestion);
+            PlayerMovementIsaac.instance.MouseState();
 
             yield return new WaitWhile(() => QuestionManager.intance.replies.TrueForAll(x => x.jaja == 0));
+            PlayerMovementIsaac.instance.MouseState();
 
 
             for (int i = 0; i < QuestionManager.intance.replies.Count; i++)

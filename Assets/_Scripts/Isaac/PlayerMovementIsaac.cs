@@ -43,25 +43,14 @@ public class PlayerMovementIsaac : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         canMove = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void Update()
     {
 
-        //RaycastHit hit;
-        //if (Physics.Raycast(groundPoint.position, Vector3.down, out hit, .01f, whatIsGround))
-        //{
-        //    isGrounded = true;
-        //}
-        //else
-        //{
-        //    isGrounded = false;
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Space) && isGrounded && canMove)
-        //{
-        //    rb.velocity += new Vector3(0, jump /**40* Time.deltaTime*/, 0);
-        //}
+        
 
         Controls();
 
@@ -354,7 +343,6 @@ public class PlayerMovementIsaac : MonoBehaviour
 
                 StartCoroutine(VolumeManager.instance.LibroFiltroOut());
                 canMove = true;
-
                 canPlayLibrito = false;
                 canChangeCamera = true;
                 canChangeAudio = true;
@@ -370,4 +358,27 @@ public class PlayerMovementIsaac : MonoBehaviour
         libreta.GetComponent<BookPro>().CurrentPaper = 0;
         yield break;
     }
+
+
+    bool showMouse;
+
+    public void MouseState()
+    {
+        showMouse = !showMouse;
+
+        if (showMouse)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
+        else
+        {
+            if (!showMouse)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+    }
+
 }

@@ -70,7 +70,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && dialogueOn&& canContinue)
+        if (Input.GetKeyDown(KeyCode.Space) && dialogueOn && canContinue)
         {
 
             NextDialgogue();
@@ -162,7 +162,7 @@ public class DialogueManager : MonoBehaviour
                 break;
             case "Flaite Lider":
                 personajesParaAnimTalk[6].GetComponent<Animator>().SetBool("IsTalking", true);
-                break; 
+                break;
             case "Carabinero Lider":
                 personajesParaAnimTalk[7].GetComponent<Animator>().SetBool("IsTalking", true);
                 break;
@@ -179,6 +179,15 @@ public class DialogueManager : MonoBehaviour
                 break;
             case "Hipster Artista":
                 personajesParaAnimTalk[11].GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
+            case "Sara":
+                personajesParaAnimTalk[6].GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
+            case "Sebastián":
+                personajesParaAnimTalk[13].GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
+            case "Juan":
+                personajesParaAnimTalk[12].GetComponent<Animator>().SetBool("IsTalking", true);
                 break;
         }
 
@@ -222,15 +231,23 @@ public class DialogueManager : MonoBehaviour
             case "Flaite Nro. 134":
                 personajesParaAnimTalk[9].GetComponent<Animator>().SetBool("IsTalking", false);
                 break;
-
             case "Flaite Nro. 87":
                 personajesParaAnimTalk[10].GetComponent<Animator>().SetBool("IsTalking", false);
                 break;
             case "Hipster Artista":
-                personajesParaAnimTalk[11].GetComponent<Animator>().SetBool("IsTalking", true);
+                personajesParaAnimTalk[11].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+            case "Sara":
+                personajesParaAnimTalk[6].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+            case "Sebastián":
+                personajesParaAnimTalk[13].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+            case "Juan":
+                personajesParaAnimTalk[12].GetComponent<Animator>().SetBool("IsTalking", false);
                 break;
         }
     }
 
-    
+
 }
