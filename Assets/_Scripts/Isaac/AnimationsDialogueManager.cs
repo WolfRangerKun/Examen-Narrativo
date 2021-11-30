@@ -8,7 +8,7 @@ public class AnimationsDialogueManager : MonoBehaviour
     public static AnimationsDialogueManager instance;
     public List<Dialogue> dialogoAnimationBienvenida, dialogoClearGarmando, dialogoClearGarmandoADormir;
     public List<AudioSource> audios;
-    public GameObject cv, vsfHambre, winTrigger;
+    public GameObject cv,cv2,cvDolly, vsfHambre, winTrigger;
     public DialogueManager dM;
     public bool sceneOne;
     private void Awake()
@@ -24,7 +24,8 @@ public class AnimationsDialogueManager : MonoBehaviour
         }
         else
         {
-            //ponerDollydeNivel e iniciar otra corrutina 
+            StartCoroutine(DialogoEntradaLastarrias());
+
         }
     }
 
@@ -63,6 +64,37 @@ public class AnimationsDialogueManager : MonoBehaviour
 
         cv.SetActive(false);
         PlayerMovementIsaac.instance.canMove = true;
+        yield break;
+
+    }
+
+    public IEnumerator DialogoEntradaLastarrias()
+    {
+        PlayerMovementIsaac.instance.canMove = false;
+        //Dollyprimero y despues dialogo.
+        yield return new WaitForSeconds(16.7f);
+
+        Transparencia.intance.modo = Transparencia.MODO.SHOW;
+        yield return new WaitForSeconds(2f);
+        cvDolly.SetActive(false);
+        //Cambio de camara
+        yield return new WaitForSeconds(1f);
+
+        Transparencia.intance.modo = Transparencia.MODO.HIDE;
+        yield return new WaitForSeconds(2f);
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
+        cv.SetActive(true);
+        dM.dialogos = dialogoAnimationBienvenida;
+        dM.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        yield return new WaitUntil(() => dM.index > 0);
+
+        yield return new WaitUntil(() => dM.index == 0);
+
+        cv.SetActive(false);
+        PlayerMovementIsaac.instance.canMove = true;
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
         yield break;
 
     }
@@ -111,5 +143,47 @@ public class AnimationsDialogueManager : MonoBehaviour
 
     }
 
+    public IEnumerator DialogoLastarriaSospecha()
+    {
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
 
+        cv2.SetActive(true);
+        PlayerMovementIsaac.instance.canMove = false;
+        dM.dialogos = dialogoClearGarmando;
+        dM.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        yield return new WaitUntil(() => dM.index > 0);
+
+        yield return new WaitUntil(() => dM.index == 0);
+
+        cv2.SetActive(false);
+        PlayerMovementIsaac.instance.canMove = true;
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
+        winTrigger.SetActive(false);
+
+        yield break;
+
+    }
+
+    public IEnumerator DialogoLastarriaMiedo()
+    {
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
+        cv2.SetActive(true);
+        PlayerMovementIsaac.instance.canMove = false;
+        dM.dialogos = dialogoClearGarmandoADormir;
+        dM.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        yield return new WaitUntil(() => dM.index > 0);
+
+        yield return new WaitUntil(() => dM.index == 0);
+
+        cv2.SetActive(false);
+        PlayerMovementIsaac.instance.canMove = true;
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
+        winTrigger.SetActive(false);
+
+        yield break;
+
+    }
 }

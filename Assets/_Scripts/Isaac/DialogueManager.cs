@@ -160,6 +160,14 @@ public class DialogueManager : MonoBehaviour
             case "Alberto":
                 personajesParaAnimTalk[5].GetComponent<Animator>().SetBool("IsTalking", true);
                 break;
+            case "Flaite Lider":
+                personajesParaAnimTalk[6].GetComponent<Animator>().SetBool("IsTalking", true);
+                print("oli");
+                break;
+            case "Carabinero Lider":
+                personajesParaAnimTalk[7].GetComponent<Animator>().SetBool("IsTalking", true);
+                print("oli2");
+                break;
         }
 
 
@@ -189,6 +197,16 @@ public class DialogueManager : MonoBehaviour
                 break;
             case "Alberto":
                 personajesParaAnimTalk[5].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+            case "Flaite Lider":
+                personajesParaAnimTalk[6].GetComponent<Animator>().SetBool("IsTalking", false);
+                print("oli3");
+
+                break;
+            case "Carabinero Lider":
+                personajesParaAnimTalk[7].GetComponent<Animator>().SetBool("IsTalking", false);
+                print("oli4");
+
                 break;
         }
     }

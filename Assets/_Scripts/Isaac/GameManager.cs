@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public bool isMenu;
     public bool levelOneComplete;
-    public GameObject triggerFinalNivel;
+    public bool lastarriasOne;
+
+    public GameObject triggerFinalNivel, triggerLastUno;
     public AudioSource bgm;
     private void Awake()
     {
@@ -31,6 +33,11 @@ public class GameManager : MonoBehaviour
         {
             triggerFinalNivel.SetActive(true);
             levelOneComplete = false;
+        }
+        if (lastarriasOne)
+        {
+            triggerLastUno.SetActive(true);
+            lastarriasOne = false;
         }
     }
 
