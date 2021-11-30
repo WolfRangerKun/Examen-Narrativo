@@ -866,10 +866,13 @@ public class InteraccionNPC : MonoBehaviour
         {
             print("dotiwng");
 
+            PlayerMovementIsaac.instance.sprite.GetComponent<Animator>().SetBool("Baile", true);
             flaite.transform.DOMove(flaite.transform.position + new Vector3(4, 0, 0), 3);
             flaite.GetComponent<Animator>().SetBool("IsWalking", true);
             yield return new WaitForSeconds(3);
             flaite.GetComponent<Animator>().SetBool("IsWalking", false);
+            PlayerMovementIsaac.instance.sprite.GetComponent<Animator>().SetBool("Baile", false);
+
             GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
             flaite.GetComponentInParent<BoxCollider>().isTrigger = true;
             cubo.SetActive(false);
