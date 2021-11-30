@@ -169,6 +169,17 @@ public class DialogueManager : MonoBehaviour
             case "Flaite Nro. 37":
                 personajesParaAnimTalk[8].GetComponent<Animator>().SetBool("IsTalking", true);
                 break;
+
+            case "Flaite Nro. 134":
+                personajesParaAnimTalk[9].GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
+
+            case "Flaite Nro. 87":
+                personajesParaAnimTalk[10].GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
+            case "Hipster Artista":
+                personajesParaAnimTalk[11].GetComponent<Animator>().SetBool("IsTalking", true);
+                break;
         }
 
 
@@ -207,6 +218,16 @@ public class DialogueManager : MonoBehaviour
                 break;
             case "Flaite Nro. 37":
                 personajesParaAnimTalk[8].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+            case "Flaite Nro. 134":
+                personajesParaAnimTalk[9].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+
+            case "Flaite Nro. 87":
+                personajesParaAnimTalk[10].GetComponent<Animator>().SetBool("IsTalking", false);
+                break;
+            case "Hipster Artista":
+                personajesParaAnimTalk[11].GetComponent<Animator>().SetBool("IsTalking", true);
                 break;
         }
     }

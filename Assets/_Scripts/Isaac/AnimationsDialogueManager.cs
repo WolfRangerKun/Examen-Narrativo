@@ -8,7 +8,7 @@ public class AnimationsDialogueManager : MonoBehaviour
     public static AnimationsDialogueManager instance;
     public List<Dialogue> dialogoAnimationBienvenida, dialogoClearGarmando, dialogoClearGarmandoADormir, garmandoDesideFlaite, chao;
     public List<AudioSource> audios;
-    public GameObject cv,cv2,cvDolly, vsfHambre, winTrigger, triggerTow;
+    public GameObject cv,cv2,cvDolly, vsfHambre, winTrigger, triggerTow,textH;
     public DialogueManager dM;
     public bool sceneOne;
     private void Awake()
@@ -203,7 +203,7 @@ public class AnimationsDialogueManager : MonoBehaviour
         PlayerMovementIsaac.instance.canMove = true;
         GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
 
-
+        vsfHambre.SetActive(false);
         yield break;
 
     }
@@ -223,6 +223,8 @@ public class AnimationsDialogueManager : MonoBehaviour
         cv.SetActive(false);
         GameManager.instance.StartFade(GameManager.instance.bgm, 1, .01f);
         Transparencia.intance.modo = Transparencia.MODO.SHOW;
+        yield return new WaitForSeconds(3);
+        textH.SetActive(true);
         //mostrar mensaje y menu de terminado
 
         yield break;

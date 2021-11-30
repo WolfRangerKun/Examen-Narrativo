@@ -30,9 +30,25 @@ public class InteraccionNPC : MonoBehaviour
     public Question thisQuestion;
     public List<Dialogue> thisDialogue, dialogueUno, dialogueDos, dialogueTres, dialogoDesbloqueoConPalabra, dialogoDesbloqueoConObservacion;
     public GameObject cv, textoPopUp;
+    public GameObject flaite , cubo;
     bool yaDesbloqueo, isDialogoPalabra;
     int l;
     bool canTalk;
+    private void Start()
+    {
+        if (GameObject.Find("Sprite Flaite Principal"))
+        {
+            flaite = GameObject.Find("Sprite Flaite Principal");
+
+        }
+        if (GameObject.Find("CubexD"))
+        {
+            cubo = GameObject.Find("CubexD");
+
+        }
+
+
+    }
     private void Update()
     {
         if (canTalk && Input.GetMouseButtonDown(0))
@@ -832,6 +848,7 @@ public class InteraccionNPC : MonoBehaviour
                     }
                     if (DialogueManager.intance.dialogos[0].nombre == "Flaite Nro. 37")
                     {
+                        print("completo");
                         GameManager.instance.lastarriaTwo = true;
                     }
                     l++;
@@ -843,15 +860,17 @@ public class InteraccionNPC : MonoBehaviour
         //QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
 
         
-        if (GameManager.instance.lastarriaTwo == true)
+        if (flaite != null && l == 1)
         {
-            GameObject flaite = GameObject.Find("Sprite Flaite Principal");
+            print("dotiwng");
+
             flaite.transform.DOMove(flaite.transform.position + new Vector3(4, 0, 0), 3);
             flaite.GetComponent<Animator>().SetBool("IsWalking", true);
             yield return new WaitForSeconds(3);
             flaite.GetComponent<Animator>().SetBool("IsWalking", false);
             GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
-
+            flaite.GetComponentInParent<BoxCollider>().isTrigger = true;
+            cubo.SetActive(false);
             cv.SetActive(false);
             PlayerMovementIsaac.instance.canMove = true;
         }

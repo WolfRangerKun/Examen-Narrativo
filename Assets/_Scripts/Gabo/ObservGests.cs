@@ -10,7 +10,7 @@ public class ObservGests : MonoBehaviour
     public GameObject cv, vfxMira;
     public IEnumerator Situacion()
     {
-        if (gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Situacion || gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Objeto)
+        if (gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Situacion || gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Objeto || gestoObservable.clasifcationObserv == GestObserv.OBSERVADO.Gesto)
         {
             GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
 
