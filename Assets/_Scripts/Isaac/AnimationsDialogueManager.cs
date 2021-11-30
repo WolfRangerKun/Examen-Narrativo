@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class AnimationsDialogueManager : MonoBehaviour
 {
     public static AnimationsDialogueManager instance;
-    public List<Dialogue> dialogoAnimationBienvenida, dialogoClearGarmando, dialogoClearGarmandoADormir;
+    public List<Dialogue> dialogoAnimationBienvenida, dialogoClearGarmando, dialogoClearGarmandoADormir, garmandoDesideFlaite, chao;
     public List<AudioSource> audios;
-    public GameObject cv,cv2,cvDolly, vsfHambre, winTrigger;
+    public GameObject cv,cv2,cvDolly, vsfHambre, winTrigger, triggerTow;
     public DialogueManager dM;
     public bool sceneOne;
     private void Awake()
@@ -181,7 +181,49 @@ public class AnimationsDialogueManager : MonoBehaviour
         PlayerMovementIsaac.instance.canMove = true;
         GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
 
-        winTrigger.SetActive(false);
+        triggerTow.SetActive(true);
+
+        yield break;
+
+    }
+
+    public IEnumerator DialogoLastarriaMisionDos()
+    {
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
+        cv.SetActive(true);
+        PlayerMovementIsaac.instance.canMove = false;
+        dM.dialogos = garmandoDesideFlaite;
+        dM.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        yield return new WaitUntil(() => dM.index > 0);
+
+        yield return new WaitUntil(() => dM.index == 0);
+
+        cv.SetActive(false);
+        PlayerMovementIsaac.instance.canMove = true;
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
+
+        yield break;
+
+    }
+
+    public IEnumerator DialogoLastarriaAdios()
+    {
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .1f);
+
+        cv.SetActive(true);
+        PlayerMovementIsaac.instance.canMove = false;
+        dM.dialogos = chao;
+        dM.ShowDialogo(DialogueManager.intance.dialogos[0]);
+        yield return new WaitUntil(() => dM.index > 0);
+
+        yield return new WaitUntil(() => dM.index == 0);
+
+        cv.SetActive(false);
+        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .01f);
+        Transparencia.intance.modo = Transparencia.MODO.SHOW;
+        //mostrar mensaje y menu de terminado
 
         yield break;
 

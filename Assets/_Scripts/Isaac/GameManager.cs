@@ -7,9 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public bool isMenu;
     public bool levelOneComplete;
-    public bool lastarriasOne;
+    public bool lastarriasOne, lastarriaTwo;
 
-    public GameObject triggerFinalNivel, triggerLastUno;
+    public GameObject triggerFinalNivel, triggerLastUno, termina;
     public AudioSource bgm;
     private void Awake()
     {
@@ -39,9 +39,17 @@ public class GameManager : MonoBehaviour
             triggerLastUno.SetActive(true);
             lastarriasOne = false;
         }
+        if (lastarriaTwo)
+        {
+            termina.SetActive(true);
+            lastarriaTwo = false;
+        }
     }
 
-
+    IEnumerator CorridaFlaite()
+    {
+        yield return new WaitForSeconds(1);
+    }
     public IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
     {
         float currentTime = 0;

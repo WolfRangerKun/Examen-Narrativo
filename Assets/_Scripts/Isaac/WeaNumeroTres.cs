@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaNumeroTres : MonoBehaviour
 {
     public AnimationsDialogueManager dM;
-    public bool inicio, triggerOne;
+    public bool inicio, triggerOne, triggerTow, termina;
     private void Awake()
     {
         dM = FindObjectOfType<AnimationsDialogueManager>();
@@ -22,6 +22,16 @@ public class WeaNumeroTres : MonoBehaviour
             if (triggerOne)
             {
                 StartCoroutine(dM.DialogoLastarriaMiedo());
+
+            }
+            if (triggerTow)
+            {
+                StartCoroutine(dM.DialogoLastarriaMisionDos());
+
+            }
+            if (termina)
+            {
+                StartCoroutine(dM.DialogoLastarriaAdios());
 
             }
         }

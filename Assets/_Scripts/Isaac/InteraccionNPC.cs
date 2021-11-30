@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 //using System.Linq;
 
 [System.Serializable]
@@ -828,7 +829,10 @@ public class InteraccionNPC : MonoBehaviour
                     if (DialogueManager.intance.dialogos[0].nombre == "Dueño de Almacen")
                     {
                         GameManager.instance.levelOneComplete = true;
-                        print("LevelOneCOpmplete");
+                    }
+                    if (DialogueManager.intance.dialogos[0].nombre == "Flaite Nro. 37")
+                    {
+                        GameManager.instance.lastarriaTwo = true;
                     }
                     l++;
                 }
@@ -837,10 +841,27 @@ public class InteraccionNPC : MonoBehaviour
         yield return new WaitUntil(() => DialogueManager.intance.index > 0);
         yield return new WaitUntil(() => DialogueManager.intance.index == 0);
         //QuestionManager.intance.replies[thisQuestion.correctAnswer].jaja = 0;
-        GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
 
-        cv.SetActive(false);
-        PlayerMovementIsaac.instance.canMove = true;
+        
+        if (GameManager.instance.lastarriaTwo == true)
+        {
+            GameObject flaite = GameObject.Find("Sprite Flaite Principal");
+            flaite.transform.DOMove(flaite.transform.position + new Vector3(4, 0, 0), 3);
+            flaite.GetComponent<Animator>().SetBool("IsWalking", true);
+            yield return new WaitForSeconds(3);
+            flaite.GetComponent<Animator>().SetBool("IsWalking", false);
+            GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
+            cv.SetActive(false);
+            PlayerMovementIsaac.instance.canMove = true;
+        }
+        else
+        {
+            GameManager.instance.StartFade(GameManager.instance.bgm, 1, .3f);
+
+            cv.SetActive(false);
+            PlayerMovementIsaac.instance.canMove = true;
+        }
         yield break;
     }
 
@@ -861,23 +882,5 @@ public class InteraccionNPC : MonoBehaviour
         }
     }
 
-    //foreach (string z in Libreta.instance.notasPalabras)
-    //    {
-    //        if (fraseOrginial.Contains(z))
-    //        {
-    //            string palabraBuena = "";
-    //            for (int i = 0; i < Libreta.instance.notasPalabras.Count; i++)
-    //            {
-    //                if (Libreta.instance.notasPalabras[i] == z)
-    //                {
-    //                    ////solo funciona si la lista tiene un significado solamente
-
-    //                    palabraBuena = Libreta.instance.sigPalabras[i].significados[0];
-    //                }
-    //            }
-    //            string nuevaFrase = fraseOrginial.Replace(z, palabraBuena);
-    //            thisQuestion.question = nuevaFrase;
-    //            return;
-    //        }
-    //    }
+   
 }
